@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .dark {
+
+    /**
+     * ---------------------------------------------
+     * Brand Colors
+     * ---------------------------------------------
+     */
+    --primary: 3 63 99;
+    --primary-foreground: 255 255 255;
+
+    --secondary: 255 255 255;
+    --secondary-foreground: 00 00 00;
+
+    /**
+     * ---------------------------------------------
+     * Screen Colors
+     * ---------------------------------------------
+     */
+    --background: 33 33 33;
+    --background-foreground: 250 250 250;
+
+    --window: 26 35 52;
+    --window-foreground: 33 33 33;
+
+    --workspace: 249 249 249;
+    --workspace-foreground: 33 33 33;
+
+    /**
+     * ---------------------------------------------
+     * Custom Colors
+     * ---------------------------------------------
+     */
+    --neutral-50: 10 10 10;
+    --neutral-100: 23 23 23;
+    --neutral-200: 38 38 38;
+    --neutral-300: 64 64 64;
+    --neutral-400: 82 82 82;
+    --neutral-500: 115 115 115;
+    --neutral-600: 163 163 163;
+    --neutral-700: 212 212 212;
+    --neutral-800: 229 229 229;
+    --neutral-900: 247 247 247;
+    --neutral-950: 250 250 250;
+  }
+}
