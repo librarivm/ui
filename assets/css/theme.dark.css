@@ -21,14 +21,15 @@
      * Screen Colors
      * ---------------------------------------------
      */
-    --background: 33 33 33;
+    --background: 29 34 41;
     --background-foreground: 250 250 250;
 
-    --window: 26 35 52;
-    --window-foreground: 33 33 33;
+    --window: 00 00 00;
+    --window-foreground: 255 255 255;
 
-    --workspace: 249 249 249;
-    --workspace-foreground: 33 33 33;
+    /*--workspace: 34 42 56;*/
+    --workspace: 29 34 41;
+    --workspace-foreground: 250 250 250;
 
     /**
      * ---------------------------------------------

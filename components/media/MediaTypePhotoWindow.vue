@@ -10,13 +10,13 @@ defineProps({
 </script>
 
 <template>
-  <AppContainer width="fluid">
+  <AppContainer>
     <AppGrid>
       <AppColumn>
         <PageBody>
           <template v-for="(contents, i) in Object.values(data.contents)" :key="i">
             <PageTitle class="font-normal" type="h4">{{ contents.title }}</PageTitle>
-            <MasonryTiles :items="contents.items" col="4" />
+            <MasonryTiles :items="contents.items" col="4" item-src="src" />
           </template>
         </PageBody>
       </AppColumn>

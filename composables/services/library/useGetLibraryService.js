@@ -1,6 +1,5 @@
 import { useBaseService } from '~/composables/services/useBaseService.js';
 import { useApi } from '~/composables/api/useApi.js';
-import isNil from 'lodash/isNil';
 import { NOT_FOUND_CODE, NOT_FOUND_MESSAGE } from '~/composables/types/useStatusType.js';
 
 export const useGetLibraryService = async () => {
@@ -9,30 +8,30 @@ export const useGetLibraryService = async () => {
   const code = computed(() => $route.params.library);
   const type = useState('library.type', () => '');
 
-  const handle = async () => {
-    $service.startLoading();
+  $service.startLoading();
 
-    const response = await useApi(`${code.value}`);
+  try {
+    const data = await useApi(`/libraries/${code.value}`, {
+      key: `library.${code.value}`,
+      params: {
+        _embed: 'contents',
+      },
+    });
 
-    if (isNil(response?.data?.value)) {
-      throw createError({
-        statusCode: NOT_FOUND_CODE,
-        statusMessage: NOT_FOUND_MESSAGE,
-        fatal: true,
-      });
-    }
-
-    $service.set(response.data);
-    type.value = response.data.value.type;
-
+    $service.set(data);
+    type.value = data?.type;
+  } catch (error) {
+    throw createError({
+      statusCode: error?.response?.status || NOT_FOUND_CODE,
+      statusMessage: error?.response?.message || NOT_FOUND_MESSAGE,
+      fatal: true,
+    });
+  } finally {
     $service.stopLoading();
-  };
-
-  await handle();
+  }
 
   return $service.merge({
     code,
     type,
-    handle,
   });
 };

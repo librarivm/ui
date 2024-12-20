@@ -1,6 +1,6 @@
 import { useLibraryType } from '~/composables/types/useLibraryType.js';
 
-export const resolveIconComponentFromType = (type) => {
+export const useResolveIconComponentFromType = (type) => {
   const { PHOTO_LIBRARY_TYPE, MOVIE_LIBRARY_TYPE, SERIES_LIBRARY_TYPE, COMICS_LIBRARY_TYPE } =
     useLibraryType();
 

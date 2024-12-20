@@ -1,5 +1,9 @@
 <script setup>
 import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
+
+defineProps({
+  disabled: Boolean,
+});
 </script>
 
 <template>
@@ -14,6 +18,7 @@ import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
           'border border-neutral-100',
           'bg-background',
           'focus:outline-none focus:ring-2 focus:ring-neutral-300',
+          disabled && 'opacity-85 select-none text-neutral-500',
         ],
         $attrs.class
       )

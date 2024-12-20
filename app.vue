@@ -1,5 +1,6 @@
 <script setup>
 import { useDark } from '@vueuse/core';
+import AppPortal from '~/components/containments/AppPortal.vue';
 
 const config = useRuntimeConfig();
 const route = useRoute();
@@ -20,4 +21,5 @@ useHead({
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <AppPortal />
 </template>

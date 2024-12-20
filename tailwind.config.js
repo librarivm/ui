@@ -13,7 +13,7 @@ export default {
       variants: ['xs', 'sm', 'md', 'lg', 'xl'],
     },
     {
-      pattern: /aspect-(auto|square|video|poster)/,
+      pattern: /aspect-(auto|square|avatar|video|poster)/,
       variants: ['xs', 'sm', 'md', 'lg', 'xl'],
     },
   ],
@@ -43,6 +43,7 @@ export default {
     extend: {
       aspectRatio: {
         poster: '2 / 3',
+        avatar: '1',
       },
 
       borderColor: {

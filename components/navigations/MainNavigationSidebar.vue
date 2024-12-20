@@ -6,9 +6,15 @@ import MainNavigationMenus from '~/components/navigations/MainNavigationMenus.vu
 import { useMainNavigationSidebarStore } from '~/stores/useMainNavigationSidebarStore.js';
 import GlassPanel from '~/components/containments/GlassPanel.vue';
 import BrandComboMark from '~/components/brand/BrandComboMark.vue';
+import { storeToRefs } from 'pinia';
+import { useAppBreakpoints } from '~/composables/utils/useAppBreakpoints.js';
+import ShadowScrim from '~/components/containments/ShadowScrim.vue';
 
 const $store = useMainNavigationSidebarStore();
 const { shown, collapsed, expanded } = storeToRefs($store);
+
+const { isMobile } = useAppBreakpoints();
+const isScrimActive = computed(() => isMobile.value && shown.value);
 </script>
 
 <template>
@@ -37,4 +43,10 @@ const { shown, collapsed, expanded } = storeToRefs($store);
       </BaseSection>
     </GlassPanel>
   </aside>
+  <ShadowScrim
+    :active="isScrimActive"
+    :class="[collapsed ? 'left-[64px]' : expanded ? 'left-[320px]' : '-left-[100%]']"
+    class="transition-all"
+    @click.stop="$store.toggle()"
+  />
 </template>

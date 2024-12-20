@@ -19,8 +19,8 @@ const entries = computed(() =>
   <div class="block" data-component="flex-table">
     <slot>
       <template v-for="(item, i) in entries" :key="i">
-        <div class="flex leading-tight">
-          <div :style="`flex: 0 0 ${width}px;`" class="mr-4 shrink-0 text-nowrap">
+        <div class="flex leading-normal md:mb-0 mb-2">
+          <div :style="`flex: 0 0 ${width}px;`" class="mr-4 shrink-0 font-bold text-nowrap">
             <slot name="item.title" v-bind="{ item, key: i }">
               <div class="font-weight-bold mb-1">{{ item.title }}</div>
             </slot>

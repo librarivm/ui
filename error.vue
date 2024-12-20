@@ -45,8 +45,6 @@ useDark();
           </IllustrationCard>
           <FancyBlockquote class="italic max-w-sm">
             Would you tell me, please, which way I ought to go from here?
-            <!--Well, well, it seems you’ve wandered off the path. The page? Oh, it’s not here. Perhaps it-->
-            <!--never was! Turn back... or forward... whichever way amuses you most.-->
           </FancyBlockquote>
         </section>
       </div>

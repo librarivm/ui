@@ -17,6 +17,11 @@ import MasonryTiles from '~/components/displays/MasonryTiles.vue';
 import PhotoCard from '~/components/displays/PhotoCard.vue';
 import ChevronRightIcon from '~/components/icons/ChevronRightIcon.vue';
 import AppLink from '~/components/navigations/AppLink.vue';
+import DialogModal from '~/components/containments/DialogModal.vue';
+import BaseCardHeader from '~/components/containments/BaseCardHeader.vue';
+import BaseCardFooter from '~/components/containments/BaseCardFooter.vue';
+import AddLibraryDialog from '~/components/controls/AddLibraryDialog.vue';
+import BaseTooltip from '~/components/feedback/BaseTooltip.vue';
 
 definePageMeta({
   layout: 'sandbox',
@@ -28,9 +33,9 @@ definePageMeta({
   <PageHeader back />
 
   <MainContent>
-    <AppContainer width="fluid">
+    <AppContainer>
       <AppGrid>
-        <AppColumn>
+        <AppColumn class="flex flex-col gap-4">
           <PageTitle class="mb-4" type="h1">Photos</PageTitle>
           <MasonryTiles :col="3">
             <PhotoCard
@@ -70,6 +75,11 @@ definePageMeta({
             />
           </MasonryTiles>
 
+          <BaseTooltip>
+            <template v-slot:activator>hello</template>
+            Hello there.
+          </BaseTooltip>
+
           <BottomSheet>
             <template v-slot:activator="{ prop }">
               <BaseButton v-bind="prop" variant="primary">Bottom Sheet</BaseButton>
@@ -83,6 +93,29 @@ definePageMeta({
               </BaseCardContent>
             </BaseCard>
           </BottomSheet>
+
+          <AddLibraryDialog />
+
+          <DialogModal>
+            <template v-slot:activator="{ prop }">
+              <BaseButton v-bind="prop" variant="primary">Dialog</BaseButton>
+            </template>
+
+            <template v-slot:default="{ prop }">
+              <BaseCard>
+                <BaseCardHeader>Dialog</BaseCardHeader>
+                <BaseCardContent>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda corporis
+                  deserunt, eligendi eos est, et fugit inventore iure iusto maiores minima nesciunt
+                  omnis placeat provident quia, repudiandae sit vel velit.
+                </BaseCardContent>
+                <BaseCardFooter>
+                  <BaseButton v-bind="prop">Cancel</BaseButton>
+                  <BaseButton variant="primary">Confirm</BaseButton>
+                </BaseCardFooter>
+              </BaseCard>
+            </template>
+          </DialogModal>
 
           <PosterModernistCard
             class="mt-4"

@@ -1,13 +1,9 @@
 <script setup>
-/**
- * @typedef { 'auto' | 'square' | 'video' | 'poster' } BaseImageAspectRatioType
- */
-
 import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
+import { useAspectRatioProp } from '~/composables/props/useAspectRatioProp.js';
 
 const $props = defineProps({
-  /** @type import('vue').PropType<BaseImageAspectRatioType> */
-  aspectRatio: { type: String, default: 'auto' },
+  ...useAspectRatioProp(),
 });
 
 const aspectRatio = computed(() => `aspect-${$props.aspectRatio}`);
@@ -18,7 +14,7 @@ const aspectRatio = computed(() => `aspect-${$props.aspectRatio}`);
     :alt="$attrs.alt"
     :class="
       useMergeClasses(
-        ['max-w-xl max-h-lg', 'object-cover object-bottom', aspectRatio],
+        ['max-w-xl max-h-lg rounded-md', 'w-auto object-cover object-bottom', aspectRatio],
         $attrs.class
       )
     "

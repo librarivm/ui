@@ -4,13 +4,13 @@ import { useLocalStorage } from '@vueuse/core';
 export const usePageHeader = () => {
   const $base = useVisibilityToggle('page.header', true);
 
-  const fixed = useState(`page.header.fixed`, () => useLocalStorage('page.header.fixed', true));
-  const fix = (isFixed = true) => (fixed.value = isFixed);
-  const unfix = () => (fixed.value = false);
+  const sticky = useState(`page.header.sticky`, () => useLocalStorage('page.header.sticky', true));
+  const stick = (isFixed = true) => (sticky.value = isFixed);
+  const unstick = () => (sticky.value = false);
 
   return $base.merge({
-    fixed,
-    fix,
-    unfix,
+    sticky,
+    stick,
+    unstick,
   });
 };

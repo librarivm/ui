@@ -2,13 +2,28 @@
 import BaseButton from '~/components/containments/BaseButton.vue';
 import BaseIconResolver from '~/components/containments/BaseIconResolver.vue';
 import TextOverline from '~/components/typography/TextOverline.vue';
+import { useAppBreakpoints } from '~/composables/utils/useAppBreakpoints.js';
+import AddLibraryDialog from '~/components/controls/AddLibraryDialog.vue';
+import AppLink from '~/components/navigations/AppLink.vue';
 
-const { items, expanded } = storeToRefs(useMainNavigationSidebarStore());
+const $sidebar = useMainNavigationSidebarStore();
+const { items, expanded } = storeToRefs($sidebar);
+const { isMobile } = useAppBreakpoints();
+
+const onItemClick = () => isMobile.value && $sidebar.hide();
 </script>
 
 <template>
   <nav data-component="main-navigation-menus">
     <ul class="flex flex-col gap-1">
+      <li>
+        <TextOverline
+          class="font-bold flex items-center justify-between gap-3.5 my-3 text-neutral-500"
+        >
+          <AppLink :to="{ name: 'libraries.index' }" class="leading-none">Libraries</AppLink>
+          <AddLibraryDialog />
+        </TextOverline>
+      </li>
       <li v-for="(item, index) in items" :key="index">
         <template v-if="item.type === 'subheader'">
           <TextOverline class="font-bold flex gap-3.5 my-3 text-neutral-500">
@@ -21,13 +36,15 @@ const { items, expanded } = storeToRefs(useMainNavigationSidebarStore());
         </template>
         <template v-else-if="item.type === 'link'">
           <BaseButton
+            :active="$sidebar.isActive(item, 'library')"
             :class="[expanded ? 'px-3' : 'px-2']"
             :to="item.to"
-            class="w-full flex shrink-0 gap-4 hover:bg-primary/10 hover:text-primary focus:ring-primary/50 justify-start font-bold [&.router-link-active]:bg-primary [&.router-link-active]:text-primary-foreground"
+            class="w-full flex shrink-0 gap-4 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/40 dark:hover:text-primary-foreground focus:ring-primary/50 justify-start font-bold [&.router-link-active]:bg-primary [&.router-link-active]:text-primary-foreground [&.active]:bg-primary [&.active]:text-primary-foreground"
             size="sm"
             variant="ghost"
+            @click="onItemClick"
           >
-            <template #prepend>
+            <template v-slot:prepend>
               <BaseIconResolver
                 v-if="item.icon"
                 :icon="item.icon"

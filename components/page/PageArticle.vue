@@ -5,7 +5,14 @@ import { useMergeClasses } from '~/composables/utils/useMergeClasses';
 <template>
   <article
     :class="
-      useMergeClasses(['article mx-auto', 'prose', 'dark:text-background-foreground'], $attrs.class)
+      useMergeClasses(
+        [
+          'article mx-auto',
+          'prose',
+          'prose-headings:text-neutral-800 dark:text-background-foreground',
+        ],
+        $attrs.class
+      )
     "
     data-component="page-article"
   >

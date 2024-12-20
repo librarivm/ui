@@ -1,14 +1,9 @@
 <script setup>
-/**
- * @typedef { 'primary' | 'secondary' | 'danger' | 'warning' | 'info' | 'success' | 'ghost' | 'default' } ButtonVariantType
- * @typedef { 'xs' | 'sm' | 'md' | 'lg' | 'xl' } ButtonSizeType
- */
-
 import { useMergeClasses } from '~/composables/utils/useMergeClasses';
 
 const variants = {
   primary:
-    'bg-primary text-primary-foreground hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/50',
+    'bg-primary text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50',
   secondary:
     'bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-secondary/50',
   danger:
@@ -20,16 +15,18 @@ const variants = {
     'bg-success text-success-foreground hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/50',
   ghost:
     'bg-transparent text-neutral-800 border-none hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-300',
+  filled:
+    'bg-background-foreground/10 text-neutral-800 border-none hover:bg-background-foreground/20 focus:outline-none focus:ring-2 focus:ring-neutral-300',
   default:
-    'bg-background text-neutral-800 border border-neutral-100 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-neutral-300',
+    'bg-background text-neutral-800 border border-neutral-100 dark:border-neutral-800 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-neutral-300',
 };
 
 const sizes = {
   xs: 'text-xs rounded-md gap-x-0.5 px-2 py-1',
   sm: 'text-sm rounded-lg gap-x-1 px-3 py-2',
-  md: 'text-md rounded-lg gap-x-2 px-5 py-2.5',
-  lg: 'text-lg rounded-lg gap-x-2.5 px-5 py-3',
-  xl: 'text-xl rounded-xl gap-x-3 px-6 py-3.5',
+  md: 'text-md rounded-lg gap-x-2 px-5 py-3.5',
+  lg: 'text-lg rounded-lg gap-x-2.5 px-5 py-4',
+  xl: 'text-xl rounded-xl gap-x-3 px-6 py-4.5',
 };
 
 const $props = defineProps({
@@ -64,14 +61,16 @@ const component = computed(() => (href.value ? resolveComponent('NuxtLink') : 'b
           size,
           variant,
           textSize,
+          active && 'active',
           'min-w-sm',
-          'font-500',
+          'font-bold',
           'flex',
           'align-center',
           'justify-center',
           'active:opacity-85',
           'cursor-pointer',
           'items-center',
+          'leading-[1]',
           'disabled:cursor-not-allowed disabled:opacity-65',
         ],
         $attrs.class

@@ -22,7 +22,7 @@ const { content } = await useGetDocumentation(
   <PageHeader back />
 
   <MainContent>
-    <AppContainer width="comfortable">
+    <AppContainer>
       <AppGrid>
         <AppColumn>
           <PageArticle class="p-0 m-0">

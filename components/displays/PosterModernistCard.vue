@@ -2,6 +2,7 @@
 import BaseCard from '~/components/containments/BaseCard.vue';
 import BaseCardContent from '~/components/containments/BaseCardContent.vue';
 import TextHeading from '~/components/typography/TextHeading.vue';
+import BaseImage from '~/components/displays/BaseImage.vue';
 
 defineProps({
   src: { type: String, default: null },
@@ -13,7 +14,7 @@ defineProps({
 
 <template>
   <BaseCard
-    class="bg-[#ddd8d2] aspect-[2/3] w-full md:w-[300px] rounded-md shadow gap-0 border-none cursor-pointer hover:outline hover:outline-primary focus:outline-4 focus:outline-primary"
+    class="bg-[#ddd8d2] dark:text-neutral-100 aspect-[2/3] w-full md:w-[300px] rounded-md shadow gap-0 border-none cursor-pointer hover:outline hover:outline-primary focus:outline-4 focus:outline-primary"
     data-component="poster-modernist-card"
     tabindex="0"
     v-bind="$attrs"

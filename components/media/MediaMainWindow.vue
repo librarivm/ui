@@ -21,7 +21,7 @@ const isUnsupported = computed(() => isUnsupportedWindow(library.value));
   <MediaTypeUnsupportedWindow v-if="isUnsupported" />
 
   <template v-else>
-    <AppContainer width="fluid">
+    <AppContainer>
       <AppGrid>
         <AppColumn>
           <PageBody>

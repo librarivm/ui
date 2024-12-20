@@ -23,6 +23,10 @@ export const useMainNavigationSidebarStore = defineStore('app.navigation', () =>
   const get = (name) => items.value.find((item) => item.to?.name === name);
   const set = (menus) => (items.value = menus);
 
+  const isActive = (item, param = 'slug') => {
+    return $route.params[param] === item.to?.params?.[param] || false;
+  };
+
   return {
     collapsed,
     expanded,
@@ -40,5 +44,7 @@ export const useMainNavigationSidebarStore = defineStore('app.navigation', () =>
     items,
     get,
     set,
+
+    isActive,
   };
 });
