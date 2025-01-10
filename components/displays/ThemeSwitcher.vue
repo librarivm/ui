@@ -8,27 +8,24 @@ const isDark = useDark();
 const toggleDark = useToggle(isDark);
 </script>
 
+<script>
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <template>
   <ClientOnly>
     <BaseButton
-      class="flex transition-all shrink-0 p-1 align-center justify-center w-sm items-start text-background-foreground"
+      class="flex transition-all shrink-0 p-1 align-center justify-center w-sm items-center"
       size="xs"
       type="button"
-      variant="default"
+      v-bind="$attrs"
+      variant="filled"
       @click.prevent="toggleDark()"
     >
-      <span
-        :class="[{ 'bg-primary text-primary-foreground': !isDark }]"
-        class="p-1 text-sm rounded-md"
-      >
-        <ThemeLightIcon height="14px" width="14px" />
-      </span>
-      <span
-        :class="[{ 'bg-primary text-primary-foreground': isDark }]"
-        class="p-1 text-sm rounded-md"
-      >
-        <ThemeDarkIcon height="14px" width="14px" />
-      </span>
+      <ThemeLightIcon v-if="isDark" height="16px" width="16px" />
+      <ThemeDarkIcon v-else height="16px" width="16px" />
     </BaseButton>
   </ClientOnly>
 </template>

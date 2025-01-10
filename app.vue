@@ -1,6 +1,7 @@
 <script setup>
 import { useDark } from '@vueuse/core';
 import AppPortal from '~/components/containments/AppPortal.vue';
+import RightSidebarFullPanel from '~/components/containments/RightSidebarFullPanel.vue';
 
 const config = useRuntimeConfig();
 const route = useRoute();
@@ -20,6 +21,8 @@ useHead({
   <NuxtRouteAnnouncer />
   <NuxtLayout>
     <NuxtPage />
+
+    <RightSidebarFullPanel />
   </NuxtLayout>
   <AppPortal />
 </template>

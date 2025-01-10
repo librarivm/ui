@@ -1,9 +1,9 @@
 <script setup>
-import { useItemProp } from '~/composables/props/useItemProp.js';
+import { useItemsProps } from '~/composables/props/useItemsProps.js';
 import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
 
 const $props = defineProps({
-  ...useItemProp(),
+  ...useItemsProps(),
   showOnly: { type: Number, default: 2 },
   showMore: { type: Boolean, default: true },
   separator: { type: String, default: ',&nbsp;' },
@@ -12,11 +12,12 @@ const $props = defineProps({
 const showOnly = ref(Number($props.showOnly));
 
 const displayed = computed(() =>
-  showOnly.value
+  (showOnly.value
     ? $props.items.length > 1
       ? $props.items.slice(0, showOnly.value)
       : $props.items
     : $props.items
+  ).filter(Boolean)
 );
 
 const hasHidden = computed(() => $props.items.length > $props.showOnly);
@@ -34,7 +35,7 @@ const onToggleMore = () => {
   <div :class="useMergeClasses(['transition-all', $attrs.class])" data-component="text-items">
     <template v-for="(item, index) in displayed" :key="index">
       <slot name="item" v-bind="{ item, index, items }">
-        <span>{{ item[itemTitle] }}</span>
+        <span>{{ item?.[itemTitle] ?? item }}</span>
       </slot>
       <slot name="separator">
         <span v-if="displayed.length - 1 > index || (showMore && hasMore)" v-html="separator" />

@@ -1,45 +1,18 @@
 <script setup>
 import { useMergeClasses } from '~/composables/utils/useMergeClasses';
+import { useVariantType } from '~/composables/types/useVariantType.js';
+import { useSizeTypes } from '~/composables/types/useSizeType.js';
+import { useLinkProps } from '~/composables/props/useLinkProps.js';
 
-const variants = {
-  primary:
-    'bg-primary text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50',
-  secondary:
-    'bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-secondary/50',
-  danger:
-    'bg-danger text-danger-foreground hover:bg-danger/80 focus:outline-none focus:ring-2 focus:ring-danger/50',
-  warning:
-    'bg-warning text-warning-foreground hover:bg-warning/80 focus:outline-none focus:ring-2 focus:ring-warning/50',
-  info: 'bg-info text-info-foreground hover:bg-info/80 focus:outline-none focus:ring-2 focus:ring-info/50',
-  success:
-    'bg-success text-success-foreground hover:bg-success/80 focus:outline-none focus:ring-2 focus:ring-success/50',
-  ghost:
-    'bg-transparent text-neutral-800 border-none hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-300',
-  filled:
-    'bg-background-foreground/10 text-neutral-800 border-none hover:bg-background-foreground/20 focus:outline-none focus:ring-2 focus:ring-neutral-300',
-  default:
-    'bg-background text-neutral-800 border border-neutral-100 dark:border-neutral-800 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-neutral-300',
-};
-
-const sizes = {
-  xs: 'text-xs rounded-md gap-x-0.5 px-2 py-1',
-  sm: 'text-sm rounded-lg gap-x-1 px-3 py-2',
-  md: 'text-md rounded-lg gap-x-2 px-5 py-3.5',
-  lg: 'text-lg rounded-lg gap-x-2.5 px-5 py-4',
-  xl: 'text-xl rounded-xl gap-x-3 px-6 py-4.5',
-};
+const { variants } = useVariantType();
+const { sizes } = useSizeTypes();
 
 const $props = defineProps({
+  ...useLinkProps(),
   active: Boolean,
-
   loading: Boolean,
-
-  /** @type import('vue').PropType<import('vue-router').RouteLocationRaw> */
-  to: { type: [String, Object], default: undefined },
-
   /** @type import('vue').PropType<ButtonSizeType> */
   size: { type: String, default: 'md' },
-
   /** @type import('vue').PropType<ButtonVariantType> */
   variant: { type: String, default: 'default' },
 });
@@ -48,7 +21,6 @@ const size = computed(() => sizes[$props.size]);
 const variant = computed(() => variants[$props.variant]);
 const textSize = computed(() => sizes[$props.size]);
 const href = computed(() => $props.to);
-// TODO: NuxtLinkLocale
 const component = computed(() => (href.value ? resolveComponent('NuxtLink') : 'button'));
 </script>
 
@@ -58,20 +30,21 @@ const component = computed(() => (href.value ? resolveComponent('NuxtLink') : 'b
     :class="
       useMergeClasses(
         [
-          size,
-          variant,
-          textSize,
-          active && 'active',
           'min-w-sm',
           'font-bold',
           'flex',
           'align-center',
           'justify-center',
-          'active:opacity-85',
           'cursor-pointer',
           'items-center',
-          'leading-[1]',
+          'focus:outline-none focus:ring-4',
           'disabled:cursor-not-allowed disabled:opacity-65',
+          'transition',
+          'leading-normal',
+          size,
+          variant,
+          textSize,
+          active && 'active',
         ],
         $attrs.class
       )

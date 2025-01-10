@@ -14,7 +14,7 @@
     --primary: 3 63 99;
     --primary-foreground: 255 255 255;
 
-    --secondary: 44 65 96;
+    --secondary: 5 94 148;
     --secondary-foreground: 255 255 255;
 
     /**
@@ -36,6 +36,30 @@
      * Custom Colors
      * ---------------------------------------------
      */
+    --astronaut-blue-50: 239 249 255;
+    --astronaut-blue-100: 221 243 255;
+    --astronaut-blue-200: 180 231 255;
+    --astronaut-blue-300: 114 214 255;
+    --astronaut-blue-400: 40 193 255;
+    --astronaut-blue-500: 0 170 252;
+    --astronaut-blue-600: 0 135 216;
+    --astronaut-blue-700: 0 108 175;
+    --astronaut-blue-800: 0 91 144;
+    --astronaut-blue-900: 3 63 99;
+    --astronaut-blue-950: 2 47 79;
+
+    --venice-blue-50: 240 249 255;
+    --venice-blue-100: 224 241 254;
+    --venice-blue-200: 187 228 252;
+    --venice-blue-300: 127 207 250;
+    --venice-blue-400: 59 184 245;
+    --venice-blue-500: 17 159 230;
+    --venice-blue-600: 5 127 196;
+    --venice-blue-700: 5 94 148;
+    --venice-blue-800: 9 85 131;
+    --venice-blue-900: 13 72 109;
+    --venice-blue-950: 9 46 72;
+
     --neutral-50: 250 250 250;
     --neutral-100: 247 247 247;
     --neutral-200: 229 229 229;

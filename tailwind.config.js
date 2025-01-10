@@ -56,11 +56,11 @@ export default {
          * Brand Colors
          * --------------------------------------------------------------
          */
-        primary: {
+        'primary': {
           DEFAULT: 'rgb(var(--primary) / <alpha-value>)',
           foreground: 'rgb(var(--primary-foreground) / <alpha-value>)',
         },
-        secondary: {
+        'secondary': {
           DEFAULT: 'rgb(var(--secondary) / <alpha-value>)',
           foreground: 'rgb(var(--secondary-foreground) / <alpha-value>)',
         },
@@ -70,15 +70,15 @@ export default {
          * Screen Colors
          * --------------------------------------------------------------
          */
-        background: {
+        'background': {
           DEFAULT: 'rgb(var(--background) / <alpha-value>)',
           foreground: 'rgb(var(--background-foreground) / <alpha-value>)',
         },
-        window: {
+        'window': {
           DEFAULT: 'rgb(var(--window) / <alpha-value>)',
           foreground: 'rgb(var(--window-foreground) / <alpha-value>)',
         },
-        workspace: {
+        'workspace': {
           DEFAULT: 'rgb(var(--workspace) / <alpha-value>)',
           foreground: 'rgb(var(--workspace-foreground) / <alpha-value>)',
         },
@@ -88,7 +88,35 @@ export default {
          * Custom Colors
          * --------------------------------------------------------------
          */
-        neutral: {
+        'astronaut-blue': {
+          50: 'rgb(var(--astronaut-blue-50) / <alpha-value>)',
+          100: 'rgb(var(--astronaut-blue-100) / <alpha-value>)',
+          200: 'rgb(var(--astronaut-blue-200) / <alpha-value>)',
+          300: 'rgb(var(--astronaut-blue-300) / <alpha-value>)',
+          400: 'rgb(var(--astronaut-blue-400) / <alpha-value>)',
+          500: 'rgb(var(--astronaut-blue-500) / <alpha-value>)',
+          600: 'rgb(var(--astronaut-blue-600) / <alpha-value>)',
+          700: 'rgb(var(--astronaut-blue-700) / <alpha-value>)',
+          800: 'rgb(var(--astronaut-blue-800) / <alpha-value>)',
+          900: 'rgb(var(--astronaut-blue-900) / <alpha-value>)',
+          950: 'rgb(var(--astronaut-blue-950) / <alpha-value>)',
+        },
+
+        'venice-blue': {
+          50: 'rgb(var(--venice-blue-50) / <alpha-value>)',
+          100: 'rgb(var(--venice-blue-100) / <alpha-value>)',
+          200: 'rgb(var(--venice-blue-200) / <alpha-value>)',
+          300: 'rgb(var(--venice-blue-300) / <alpha-value>)',
+          400: 'rgb(var(--venice-blue-400) / <alpha-value>)',
+          500: 'rgb(var(--venice-blue-500) / <alpha-value>)',
+          600: 'rgb(var(--venice-blue-600) / <alpha-value>)',
+          700: 'rgb(var(--venice-blue-700) / <alpha-value>)',
+          800: 'rgb(var(--venice-blue-800) / <alpha-value>)',
+          900: 'rgb(var(--venice-blue-900) / <alpha-value>)',
+          950: 'rgb(var(--venice-blue-950) / <alpha-value>)',
+        },
+
+        'neutral': {
           50: 'rgb(var(--neutral-50) / <alpha-value>)',
           100: 'rgb(var(--neutral-100) / <alpha-value>)',
           200: 'rgb(var(--neutral-200) / <alpha-value>)',
@@ -104,7 +132,8 @@ export default {
       },
 
       fontFamily: {
-        serif: ['Noto Serif', 'Georgia'],
+        serif: ['Noto Serif', 'Source Serif Pro', 'Georgia'],
+        sans: ['Noto Sans', 'Roboto', 'sans-serif'],
       },
 
       fontSize: {

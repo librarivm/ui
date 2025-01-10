@@ -15,7 +15,13 @@ export default {
 </script>
 
 <template>
-  <component :is="name" :data-resolver-name="resolverName" data-component="component-resolver" v-bind="$attrs">
+  <component
+    :is="name"
+    :data-resolver-name="resolverName"
+    class="not-prose"
+    data-component="component-resolver"
+    v-bind="$attrs"
+  >
     <template v-if="$slots.activator" v-slot:activator="{ prop }">
       <div v-bind="prop">
         <ContentSlot :use="$slots.activator" />

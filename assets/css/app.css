@@ -9,11 +9,13 @@
     letter-spacing: 0.05rem;
   }
 
-  .prose {
-    [data-component="component-resolver"] {
-      p, img, h1, h2, h3, h4, h5, h6, span, pre, code, form, fieldset, legend, input, textarea, select, textarea, blockquote {
-        @apply m-0 leading-normal;
-      }
+  .hide-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
     }
   }
 }

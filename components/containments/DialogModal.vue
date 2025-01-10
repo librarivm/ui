@@ -7,6 +7,9 @@ const $emit = defineEmits(['open', 'close']);
 
 const model = ref(false);
 
+const close = () => (model.value = false);
+const open = () => (model.value = false);
+
 const prop = reactive({
   onClick: () => {
     model.value = !model.value;
@@ -23,7 +26,7 @@ export default {
 </script>
 
 <template>
-  <slot name="activator" v-bind="{ model, prop }" />
+  <slot name="activator" v-bind="{ model, prop, close, open }" />
 
   <ClientOnly>
     <Teleport to="#portal">
@@ -31,18 +34,23 @@ export default {
         :class="
           useMergeClasses([
             model
-              ? 'self-center top-0 opacity-100 visible z-[52]'
-              : '-top-[100%] opacity-0 invisible z-[100]',
+              ? 'translate-y-0 opacity-100 visible z-[54]'
+              : '-translate-y-full opacity-0 invisible z-[100]',
           ])
         "
-        class="mx-auto sm:w-3/4 md:w-2/4 inset-0 flex shrink-0 items-center fixed transition-[opacity] ease-in-out m-2 border-none"
+        class="max-h-[calc(100vh-24px)] m-2 md:mx-auto sm:w-3/4 md:w-2/4 inset-0 flex shrink-0 self-center items-center fixed transition-[transform,opacity,visibility] ease-in-out duration-300 border-none"
         v-bind="$attrs"
       >
-        <div class="bg-background w-full mx-auto">
-          <slot v-bind="{ model, prop }" />
+        <div class="bg-background w-full mx-auto max-h-[calc(100vh-24px)]">
+          <slot v-bind="{ model, prop, close, open }" />
         </div>
       </BaseCard>
-      <ShadowScrim :active="model" @click.prevent="model = false" @shortcut:esc="model = false" />
+      <ShadowScrim
+        :active="model"
+        class="z-[53]"
+        @click.prevent="model = false"
+        @shortcut:esc="model = false"
+      />
     </Teleport>
   </ClientOnly>
 </template>

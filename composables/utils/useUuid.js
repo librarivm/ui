@@ -1,5 +1,5 @@
 export const useUuid = (separator = '-') => {
-  const generate = () => {
+  const generate = (separator = '-') => {
     let uuid = '',
       i,
       random;
@@ -14,5 +14,5 @@ export const useUuid = (separator = '-') => {
     return uuid;
   };
 
-  return generate();
+  return generate(separator);
 };

@@ -6,11 +6,12 @@ import AppColumn from '~/components/grids/AppColumn.vue';
 
 definePageMeta({
   name: 'dashboard',
+  title: 'Dashboard',
 });
 </script>
 
 <template>
-  <PageHeader />
+  <PageHeader title="Dashboard" />
   <MainContent>
     <AppContainer>
       <AppGrid>

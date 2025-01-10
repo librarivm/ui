@@ -2,7 +2,7 @@
 import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
 import { useMagicKeys, whenever } from '@vueuse/core';
 
-const $emit = defineEmits(['shortcut:esc']);
+const $emit = defineEmits(['shortcut:esc', 'close']);
 
 defineProps({
   color: { type: String, default: 'bg-black/40' },
@@ -29,7 +29,7 @@ export default {
           'top-0 left-0 right-0 bottom-0',
           'w-screen h-screen',
           'transition-all duration-200',
-          'z-[51]',
+          'z-[52]',
           color,
         ],
         $attrs.class
@@ -37,7 +37,7 @@ export default {
     "
     data-component="shadow-scrim"
     v-bind="$attrs"
-  >
-    <slot />
-  </div>
+    @click.stop="$emit('close')"
+  />
+  <slot />
 </template>

@@ -2,11 +2,10 @@
 import { useUuid } from '~/composables/utils/useUuid.js';
 import snakeCase from 'lodash/snakeCase';
 import BaseInputField from '~/components/controls/BaseInputField.vue';
+import { useInputControlProps } from '~/composables/props/useInputControlProps.js';
 
-const $props = defineProps({
-  label: { type: String, default: '' },
-  hideDetails: { type: Boolean, default: false },
-});
+const model = defineModel({ type: String, default: undefined });
+const $props = defineProps(useInputControlProps());
 
 const { generate } = useUuid();
 
@@ -25,12 +24,19 @@ export default {
     <div class="flex justify-between align-center">
       <slot name="top-left">
         <label v-if="label" :for="id" class="text-neutral-700 text-base font-medium mb-3">
-          {{ label }}
+          {{ label
+          }}<span
+            v-if="$attrs.hasOwnProperty('required')"
+            class="text-red-600 text-sm dark:text-red-400 font-serif"
+            >*</span
+          >
         </label>
       </slot>
       <slot name="top-right" />
     </div>
-    <BaseInputField :id="id" class="w-full" v-bind="attrs" />
+    <slot v-bind="{ id, attrs, model }">
+      <BaseInputField :id="id" v-model="model" class="w-full" v-bind="attrs" />
+    </slot>
     <div v-if="!hideDetails" class="flex justify-between align-center">
       <slot name="bottom-left" />
       <slot name="bottom-right" />

@@ -1,5 +1,6 @@
 import { useUuid } from '~/composables/utils/useUuid.js';
 import { useMerge } from '~/composables/utils/useMerge.js';
+import { NOT_FOUND_CODE, NOT_FOUND_MESSAGE } from '~/composables/types/useStatusType.js';
 
 /**
  * Base service hook.
@@ -22,6 +23,17 @@ export const useBaseService = (name = useUuid(), factory = null) => {
 
   const data = useState(`${name}.data`, () => ({}));
   const set = (attributes) => (data.value = attributes);
+  const append = (attributes) => (data.value = Object.assign(data.value, attributes));
+  const concat = (attributes) => (data.value = [...data.value, ...attributes]);
+  const unset = () => (data.value = {});
+
+  const fatallyThrow = (err) => {
+    throw createError({
+      statusCode: err?.statusCode || NOT_FOUND_CODE,
+      statusMessage: err?.statusMessage || NOT_FOUND_MESSAGE,
+      fatal: err?.fatal ?? true,
+    });
+  };
 
   const exportables = {
     loading,
@@ -31,6 +43,11 @@ export const useBaseService = (name = useUuid(), factory = null) => {
     selected,
     data,
     set,
+    append,
+    concat,
+    unset,
+
+    fatallyThrow,
 
     endpoint,
     ...options,

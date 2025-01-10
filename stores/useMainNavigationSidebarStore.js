@@ -2,6 +2,7 @@ import { useLocalStorage } from '@vueuse/core';
 
 export const useMainNavigationSidebarStore = defineStore('app.navigation', () => {
   const $route = useRoute();
+  const type = useState('app.navigation.type', () => undefined);
   const shown = useState('app.navigation.shown', () =>
     useLocalStorage('app.navigation.shown', true)
   );
@@ -10,6 +11,8 @@ export const useMainNavigationSidebarStore = defineStore('app.navigation', () =>
   );
   const expanded = computed(() => !collapsed.value);
   const current = computed(() => get($route.meta.name));
+
+  const setType = (value) => (type.value = value);
 
   const show = () => (shown.value = true);
   const hide = () => (shown.value = false);
@@ -24,10 +27,18 @@ export const useMainNavigationSidebarStore = defineStore('app.navigation', () =>
   const set = (menus) => (items.value = menus);
 
   const isActive = (item, param = 'slug') => {
-    return $route.params[param] === item.to?.params?.[param] || false;
+    return $route.params[type.value ?? param] === item.to?.params?.[type.value ?? param] || false;
+  };
+  const resetActiveStates = () => {
+    (items.value || []).forEach((item) => {
+      item.isActive = false;
+    });
   };
 
   return {
+    type,
+    setType,
+
     collapsed,
     expanded,
     current,
@@ -46,5 +57,6 @@ export const useMainNavigationSidebarStore = defineStore('app.navigation', () =>
     set,
 
     isActive,
+    resetActiveStates,
   };
 });

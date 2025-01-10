@@ -1,5 +1,9 @@
 <script setup>
 import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
+
+defineProps({
+  disabled: Boolean,
+});
 </script>
 
 <template>
@@ -7,11 +11,11 @@ import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
     :class="
       useMergeClasses(
         [
-          'relative',
-          'after:content-[\'\'] after:absolute',
-          'after:w-full after:h-full after:opacity-[0.025] after:-z-[1]',
-          'after:bg-[url(/img/textures/noise.svg)] after:bg-repeat after:left-0',
-          'bg-background/60 backdrop-blur-sm',
+          'relative transition-all',
+          !disabled && 'after:content-[\'\'] after:absolute',
+          !disabled && 'after:w-full after:h-full after:opacity-[0.025] after:-z-[1]',
+          !disabled && 'after:bg-[url(/img/textures/noise.svg)] after:bg-repeat after:left-0',
+          !disabled && 'bg-background/60 backdrop-blur-sm',
         ],
         $attrs.class
       )

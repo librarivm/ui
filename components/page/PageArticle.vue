@@ -9,7 +9,8 @@ import { useMergeClasses } from '~/composables/utils/useMergeClasses';
         [
           'article mx-auto',
           'prose',
-          'prose-headings:text-neutral-800 dark:text-background-foreground',
+          'prose-code:dark:text-background-foreground/80 prose-code:dark:bg-background/80',
+          'prose-headings:text-neutral-800 prose-a:dark:text-neutral-800 dark:text-background-foreground',
         ],
         $attrs.class
       )

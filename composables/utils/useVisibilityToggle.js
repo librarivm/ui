@@ -1,7 +1,9 @@
 import { useMerge } from '~/composables/utils/useMerge.js';
+import { useUuid } from '~/composables/utils/useUuid.js';
 
-export const useVisibilityToggle = (name, visibility = false) => {
-  const shown = useState(`${name}.shown`, () => visibility);
+export const useVisibilityToggle = (name = useUuid(), isShownByDefault = false) => {
+  const shown = useState(`${name}.shown`, () => isShownByDefault);
+  const hidden = computed(() => !shown.value);
 
   const show = () => (shown.value = true);
   const hide = () => (shown.value = false);
@@ -9,6 +11,7 @@ export const useVisibilityToggle = (name, visibility = false) => {
 
   return useMerge({
     shown,
+    hidden,
     show,
     hide,
     toggle,

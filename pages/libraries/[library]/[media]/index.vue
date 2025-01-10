@@ -18,31 +18,27 @@ import PencilIcon from '~/components/icons/PencilIcon.vue';
 import EllipsisVerticalIcon from '~/components/icons/EllipsisVerticalIcon.vue';
 import BackdropWindow from '~/components/displays/BackdropWindow.vue';
 import FlexTable from '~/components/displays/FlexTable.vue';
-import ItemsStrip from '~/components/selections/ItemsStrip.vue';
 import AppLink from '~/components/navigations/AppLink.vue';
 import TextSubheading from '~/components/typography/TextSubheading.vue';
 import TextItems from '~/components/typography/TextItems.vue';
 import BookmarkIcon from '~/components/icons/BookmarkIcon.vue';
+import TextSeparator from '~/components/typography/TextSeparator.vue';
+import CaptionIcon from '~/components/icons/CaptionIcon.vue';
+import BaseIconResolver from '~/components/containments/BaseIconResolver.vue';
+import { getAspectRatioWidth } from '~/composables/props/useAspectRatioProp.js';
+import ItemsGroup from '~/components/selections/ItemsGroup.vue';
 
 definePageMeta({
   name: 'media.show',
 });
 
+const $route = useRoute();
 const { data } = await useGetMediaService();
-const posterCardClass = (type) => {
-  switch (type) {
-    case 'avatar':
-      return 'h-[150px] w-[150px] rounded-xl';
-    case 'poster':
-      return 'h-[300px] w-[200px]';
-    default:
-      return 'h-[200px]';
-  }
-};
 </script>
 
 <template>
-  <PageHeader />
+  <PageHeader back />
+
   <MainContent class="flex flex-col">
     <BackdropWindow :src="data.backdrop">
       <AppContainer>
@@ -52,81 +48,111 @@ const posterCardClass = (type) => {
               <PosterCard
                 :src="data.poster"
                 aspect-ratio="poster"
-                class="h-[180px] w-auto md:w-full md:min-w-[300px] md:max-w-[300px] md:h-auto"
+                class="hidden md:block h-[180px] w-auto md:w-full md:min-w-[300px] md:max-w-[300px] md:h-auto"
               />
 
-              <BaseSection class="p-0 gap-6">
-                <BaseSection class="order-first md:order-first p-0 gap-1">
-                  <PageTitle>{{ data.title }}</PageTitle>
-                  <p class="flex items-center text-sm">
-                    <span>{{ data.year }}</span>
-                    <span class="mx-1">•</span>
-                    <span class="mr-1">{{ data.duration }}</span>
-                    <span class="mx-1">•</span>
-                    <span class="mr-1">
-                      <TextItems :items="data.genres" :show-more="false" :show-only="2">
+              <BaseSection class="mt-10 md:mt-0 p-0 gap-6">
+                <BaseSection class="order-first md:order-first flex-row md:flex-col p-0 gap-1">
+                  <PosterCard
+                    :src="data.poster"
+                    aspect-ratio="poster"
+                    class="md:hidden h-[180px] w-auto md:w-full md:min-w-[300px] md:max-w-[300px] md:h-auto"
+                  />
+                  <div class="flex flex-col gap-1">
+                    <PageTitle v-if="data.title">{{ data.title }}</PageTitle>
+
+                    <p v-if="data" class="flex items-center text-sm">
+                      <TextItems
+                        :items="[data.year, data.duration]"
+                        :show-more="false"
+                        :show-only="2"
+                        separator="&nbsp;•&nbsp;"
+                      />
+                      <TextSeparator v-if="data.authors">•</TextSeparator>
+                      <TextItems
+                        v-if="data.authors"
+                        :items="data.authors"
+                        :show-more="false"
+                        :show-only="2"
+                        separator="&nbsp;•&nbsp;"
+                      />
+                      <TextSeparator v-if="data.genres">•</TextSeparator>
+                      <TextItems
+                        v-if="data.genres"
+                        :items="data.genres"
+                        :show-more="false"
+                        :show-only="2"
+                      >
                         <template v-slot:item="{ item: prop }">
                           <AppLink href="#">{{ prop.title }}</AppLink>
                         </template>
                       </TextItems>
-                    </span>
-                  </p>
-                  <p class="flex items-center gap-2 text-xs">
-                    <BaseBadge class="text-xs">
-                      <FilmStarIcon class="size-4" />
-                      {{ data.parental }}
-                    </BaseBadge>
-                    <BaseBadge class="text-xs">
-                      <Video4kIcon class="size-4" />
-                      {{ data.format?.video || 'Full HD' }}
-                    </BaseBadge>
-                    <BaseBadge class="text-xs">
-                      <VolumeHighIcon class="size-4" />
-                      {{ data.format?.audio || '5.1' }}
-                    </BaseBadge>
-                  </p>
+                    </p>
+
+                    <p class="flex items-center gap-2 text-xs">
+                      <BaseBadge v-if="data.parental" class="text-xs">
+                        <FilmStarIcon class="size-4" />
+                        {{ data.parental }}
+                      </BaseBadge>
+                      <BaseBadge v-if="data?.format?.video" class="text-xs">
+                        <Video4kIcon class="size-4" />
+                        {{ data.format?.video || 'Full HD' }}
+                      </BaseBadge>
+                      <BaseBadge v-if="data?.format?.audio" class="text-xs">
+                        <VolumeHighIcon class="size-4" />
+                        {{ data.format?.audio || '5.1' }}
+                      </BaseBadge>
+                      <BaseBadge v-if="data?.format?.subtitle" class="text-xs">
+                        <CaptionIcon class="size-4" />
+                        {{ data.format?.subtitle || 'English SDH' }}
+                      </BaseBadge>
+                    </p>
+                  </div>
                 </BaseSection>
 
-                <BaseSection class="order-3 md:order-2 p-0 gap-1">
+                <BaseSection class="order-2 md:order-2 p-0 gap-1">
                   <TextSubheading v-if="data.tagline" class="font-normal font-sans italic">
                     {{ data.tagline }}
                   </TextSubheading>
-                  <div v-html="data.overview" />
+                  <div v-if="data.overview" v-html="data.overview" />
                 </BaseSection>
 
-                <BaseSection class="order-2 md:order-3 p-0 gap-1 shrink-0 items-stretch">
+                <BaseSection class="order-3 md:order-3 p-0 gap-1 shrink-0 items-stretch">
                   <div class="flex items-center h-full gap-3">
-                    <BaseButton class="shrink-0" variant="primary">
-                      <PlaySolidIcon class="size-4" />
-                      Watch Now
+                    <BaseButton class="h-12 shrink-0 flex-1 md:flex-none" variant="primary">
+                      <template v-if="data?.metadata?.buttons?.action?.icon">
+                        <BaseIconResolver
+                          :icon="data?.metadata?.buttons?.action?.icon"
+                          class="size-4"
+                        />
+                      </template>
+                      <PlaySolidIcon v-else class="size-4" />
+                      <span>{{ data.metadata?.buttons?.action?.name || 'Play Now' }}</span>
                     </BaseButton>
-                    <BaseButton class="shrink-0" variant="filled">
+                    <BaseButton class="h-12 shrink-0" variant="filled">
                       <PencilIcon class="size-4" />
                       <span class="hidden md:block">Edit</span>
                     </BaseButton>
-                    <BaseButton class="shrink-0 h-full" variant="filled">
+                    <BaseButton class="h-12 shrink-0" variant="filled">
                       <BookmarkIcon class="size-4" fill="currentColor" />
                     </BaseButton>
-                    <BaseButton class="shrink-0 h-full" variant="filled">
+                    <BaseButton class="h-12 shrink-0" variant="filled">
                       <EllipsisVerticalIcon class="size-4" />
                     </BaseButton>
                   </div>
                 </BaseSection>
 
-                <BaseSection class="order-last md:order-last p-0 gap-1 shrink-0">
-                  <FlexTable
-                    :items="[
-                      { title: 'Directed by', items: data?.casts_and_crew?.directors ?? [] },
-                      { title: 'Written by', items: data?.casts_and_crew?.writers ?? [] },
-                      {
-                        title: 'Genres',
-                        items: data.genres.map((i) => ({ name: i.title, ...i })),
-                      },
-                      { title: 'Studio', items: data?.casts_and_crew?.studios ?? [] },
-                    ]"
-                  >
+                <BaseSection
+                  v-if="data.details"
+                  class="order-last md:order-last p-0 gap-1 shrink-0"
+                >
+                  <FlexTable :items="data.details">
                     <template v-slot:[`item.value`]="{ item }">
-                      <TextItems :items="item.value.items" :show-only="2" item-title="name">
+                      <TextItems
+                        :item-title="data?.metadata?.details?.itemTitle || 'name'"
+                        :items="item.value.items"
+                        :show-only="2"
+                      >
                         <template v-slot:item="{ item: prop }">
                           <AppLink href="#">{{ prop.name }}</AppLink>
                         </template>
@@ -141,31 +167,59 @@ const posterCardClass = (type) => {
       </AppContainer>
     </BackdropWindow>
 
-    <template v-for="(content, i) in data.contents" :key="i">
-      <ItemsStrip :items="content.items" class="mt-6" container>
-        <template v-slot:label>
-          <span class="font-serif">{{ content.title }}</span>
-        </template>
-        <template v-slot:item="{ item, prop }">
-          <PosterCard
-            :aspect-ratio="content.type"
-            :class="posterCardClass(content.type)"
-            :hide-details="content.metadata?.hideDetails"
-            :src="item[content?.metadata?.src || 'thumbnail']"
-            :subtitle="item[content?.metadata?.subtitle || 'subtitle']"
-            :tag="item.duration"
-            href="#"
-            v-bind="prop"
-          >
-            <template v-slot:title>
-              <AppLink class="block max-w-[350px] truncate" href="#">
-                {{ item[content?.metadata?.title || 'title'] }}
-              </AppLink>
-            </template>
-          </PosterCard>
-        </template>
-      </ItemsStrip>
-    </template>
+    <div class="flex flex-col gap-10 relative">
+      <template v-for="(content, i) in data.contents" :key="i">
+        <!--{
+              name: 'media.content',
+              params: {
+                library: $route.params.library,
+                media: $route.params.media,
+                type: item?.[content?.metadata?.route?.params?.type],
+                content: item?.[content?.metadata?.route?.params?.id],
+              },
+            }-->
+        <ItemsGroup
+          :aspect-ratio="content.metadata.aspectRatio"
+          :hide-controls="content?.metadata?.hideControls"
+          :item-href="
+            (item) => ({
+              name: 'media.content',
+              params: {
+                library: $route.params.library,
+                media: $route.params.media,
+                type: item.type,
+                content: item.id,
+              },
+            })
+          "
+          :item-src="content?.metadata?.src || 'thumbnail'"
+          :item-subtitle="content?.metadata?.subtitle || 'subtitle'"
+          :items="content.items"
+          :label="content.title"
+          :text="content.text"
+          :variant="content?.metadata?.type || 'strip'"
+          container
+        >
+          <template v-slot:[`item.title`]="{ item }">
+            <AppLink
+              :class="getAspectRatioWidth(content.type)"
+              :to="{
+                name: 'media.content',
+                params: {
+                  library: $route.params.library,
+                  media: $route.params.media,
+                  type: item.type,
+                  content: item.id,
+                },
+              }"
+              class="block truncate"
+            >
+              {{ item[content?.metadata?.title || 'title'] }}
+            </AppLink>
+          </template>
+        </ItemsGroup>
+      </template>
+    </div>
 
     <div class="flex-1" />
 

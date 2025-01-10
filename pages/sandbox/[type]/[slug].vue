@@ -6,10 +6,11 @@ import AppContainer from '~/components/grids/AppContainer.vue';
 import AppGrid from '~/components/grids/AppGrid.vue';
 import AppColumn from '~/components/grids/AppColumn.vue';
 import MainContent from '~/components/containments/MainContent.vue';
+import startCase from 'lodash/startCase';
 
 definePageMeta({
-  name: 'sandbox.show',
   layout: 'sandbox',
+  name: 'sandbox.show',
 });
 
 const route = useRoute();
@@ -19,7 +20,7 @@ const { content } = await useGetDocumentation(
 </script>
 
 <template>
-  <PageHeader back />
+  <PageHeader :title="startCase(route.params.type)" />
 
   <MainContent>
     <AppContainer>

@@ -10,11 +10,13 @@
      * Brand Colors
      * ---------------------------------------------
      */
+    /*--primary: 156 215 252;*/
+    /*--primary-foreground: 3 63 99;*/
     --primary: 3 63 99;
     --primary-foreground: 255 255 255;
 
-    --secondary: 255 255 255;
-    --secondary-foreground: 00 00 00;
+    --secondary: 5 94 148;
+    --secondary-foreground: 255 255 255;
 
     /**
      * ---------------------------------------------

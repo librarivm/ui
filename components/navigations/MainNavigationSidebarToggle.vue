@@ -8,7 +8,12 @@ const { shown } = storeToRefs($store);
 </script>
 
 <template>
-  <BaseButton class="items-center" size="xs" variant="ghost" @click="$store.toggle">
+  <BaseButton
+    class="items-center w-[26px] h-[26px] p-1"
+    size="xs"
+    variant="filled"
+    @click="$store.toggle"
+  >
     <slot>
       <PanelRightOpenIcon v-if="shown" class="w-[16px] h-[16px]" />
       <PanelRightCloseIcon v-else class="w-[16px] h-[16px]" />

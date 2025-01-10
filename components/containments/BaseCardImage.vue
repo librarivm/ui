@@ -3,5 +3,8 @@ import BaseImage from '~/components/displays/BaseImage.vue';
 </script>
 
 <template>
-  <BaseImage data-component="base-card-image" />
+  <BaseImage
+    class="border-none rounded-none max-h-full max-w-full w-full object-cover"
+    data-component="base-card-image"
+  />
 </template>

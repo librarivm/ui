@@ -3,14 +3,16 @@ import isEmpty from 'lodash/isEmpty';
 
 /**
  * @param {MenuItem} item
- * @param $route
  * @returns {{}}
  */
-export const useMenuItem = (item, $route) => {
+export const useMenuItem = (item) => {
+  const $route = useRoute();
+
   const value = item.value || item?.props?.to?.meta?.name || kebabCase(item.title);
   const active = ref(false);
 
-  const isActive = (item) => $route?.meta?.name === (item?.to?.meta?.name || item?.to?.name);
+  const isActive = (item) =>
+    ($route?.meta?.name ?? $route.name) === (item?.to?.meta?.name || (item?.to?.name ?? false));
   const isActiveRoute = (name) => $route?.meta?.name === name;
 
   if (

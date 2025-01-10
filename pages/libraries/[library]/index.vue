@@ -13,7 +13,7 @@ definePageMeta({
 </script>
 
 <template>
-  <PageHeader />
+  <PageHeader :title="data?.title" />
 
   <MainContent>
     <MediaMainWindow :data="data" :loading="loading" :type="type" />

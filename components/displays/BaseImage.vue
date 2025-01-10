@@ -7,6 +7,9 @@ const $props = defineProps({
 });
 
 const aspectRatio = computed(() => `aspect-${$props.aspectRatio}`);
+const onImageLoadError = (e) => {
+  e.target.src = '/img/placeholders/image-3@2x.jpg';
+};
 </script>
 
 <template>
@@ -21,5 +24,6 @@ const aspectRatio = computed(() => `aspect-${$props.aspectRatio}`);
     :src="$attrs.src"
     data-component="base-image"
     v-bind="$attrs"
+    @error="onImageLoadError"
   />
 </template>

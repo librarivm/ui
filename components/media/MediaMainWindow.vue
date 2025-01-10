@@ -1,9 +1,7 @@
 <script setup>
-import AppContainer from '~/components/grids/AppContainer.vue';
-import AppGrid from '~/components/grids/AppGrid.vue';
-import AppColumn from '~/components/grids/AppColumn.vue';
 import { useLibraryType } from '~/composables/types/useLibraryType.js';
 import MediaTypeUnsupportedWindow from '~/components/media/MediaTypeUnsupportedWindow.vue';
+import BaseNavigationTabs from '~/components/navigations/BaseNavigationTabs.vue';
 
 const $props = defineProps({
   type: { type: String, required: true },
@@ -21,15 +19,7 @@ const isUnsupported = computed(() => isUnsupportedWindow(library.value));
   <MediaTypeUnsupportedWindow v-if="isUnsupported" />
 
   <template v-else>
-    <AppContainer>
-      <AppGrid>
-        <AppColumn>
-          <PageBody>
-            <PageTitle>{{ data.title }}</PageTitle>
-          </PageBody>
-        </AppColumn>
-      </AppGrid>
-    </AppContainer>
+    <BaseNavigationTabs v-if="data?.metadata?.sections" :items="data.metadata.sections" />
 
     <component :is="component(library)" :data="data" />
   </template>

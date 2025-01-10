@@ -1,47 +1,37 @@
 <script setup>
-import { useItemProp, useItemPropSelection } from '~/composables/props/useItemProp.js';
+import { useItemsProps } from '~/composables/props/useItemsProps.js';
 import PhotoCard from '~/components/displays/PhotoCard.vue';
 
-const $emit = defineEmits(['click:item']);
-
 defineProps({
-  ...useItemProp(),
+  ...useItemsProps(),
   /** @type import('vue').PropType<ColumnGridType> */
   col: { type: [String, Number], default: 12 },
-  width: { type: String, default: '200px' },
-  activatable: Boolean,
+  minColumns: { type: [String, Number], default: 2 },
+  width: { type: Number, default: 300 },
 });
-
-const { selected, select } = useItemPropSelection();
-const onItemClick = (item) => {
-  select(item);
-  $emit('click:item', { item, selected });
-};
 </script>
 
 <template>
-  <div data-component="masonry-tiles">
-    <div
-      :style="`columns: ${col} ${width}`"
-      class="[&>*]:break-inside-avoid-column prose-figure:m-0 prose-figure:mb-4"
+  <ClientOnly>
+    <masonry-wall
+      :column-width="width"
+      :gap="16"
+      :items="items"
+      :min-columns="minColumns"
+      :ssr-columns="4"
     >
-      <slot name="items" v-bind="{ items, selected, onItemClick }">
-        <template v-for="(item, i) in items" :key="i">
-          <div class="cursor-pointer" @click="onItemClick(item)">
-            <slot
-              name="item"
-              v-bind="{ item, isSelected: item.selected, index: i, items, onItemClick }"
-            >
-              <PhotoCard
-                :alt="item?.[itemTitle]"
-                :caption="item?.[itemTitle]"
-                :src="item?.[itemSrc]"
-                class="w-full mb-5 shadow"
-              />
-            </slot>
-          </div>
-        </template>
-      </slot>
-    </div>
-  </div>
+      <template v-slot:default="{ item, index }">
+        <slot name="item" v-bind="{ item, index }">
+          <PhotoCard
+            :key="index"
+            :alt="item?.[itemTitle]"
+            :caption="item?.[itemTitle]"
+            :src="item?.[itemSrc]"
+            class="w-full shadow my-0"
+            variant="default"
+          />
+        </slot>
+      </template>
+    </masonry-wall>
+  </ClientOnly>
 </template>

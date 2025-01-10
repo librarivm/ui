@@ -44,7 +44,7 @@ const toggle = () => (isShown.value = !isShown.value);
         'before:content-[\'\'] before:absolute before:left-0 before:top-0',
         'before:w-full before:h-full',
         'before:bg-gradient-to-t before:from-workspace',
-        'before:from-75%  md:before:from-10% md:before:to-40%',
+        'before:from-75%  md:before:from-20% md:before:to-40%',
       ]"
     />
     <div class="relative">

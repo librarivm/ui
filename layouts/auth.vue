@@ -2,6 +2,6 @@
 
 <template>
   <div id="app" data-layout="auth">
-    sd
+    <slot />
   </div>
 </template>

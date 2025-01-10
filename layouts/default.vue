@@ -3,7 +3,7 @@ import MainNavigationSidebar from '~/components/navigations/MainNavigationSideba
 import MainContentWindow from '~/components/containments/MainContentWindow.vue';
 import { useAppMenus } from '~/menus/useAppMenus.js';
 
-await useAppMenus();
+useAppMenus();
 </script>
 
 <template>

@@ -1,9 +1,6 @@
 <script setup>
-/**
- * @typedef {'fluid' | 'narrow' | 'comfortable'} WidthType
- */
-
 import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
+import { useContainerPadding } from '~/composables/ui/useContainerPadding.js';
 
 const $props = defineProps({
   /** @type import('vue').PropType<WidthType> */
@@ -29,7 +26,10 @@ const width = computed(() => {
 <template>
   <div
     :class="
-      useMergeClasses(['container mx-auto', 'p-4 sm:p-6 lg:p-8', 'max-w-full', width], $attrs.class)
+      useMergeClasses(
+        ['container mx-auto', 'max-w-full', useContainerPadding(), width],
+        $attrs.class
+      )
     "
     data-component="app-container"
   >

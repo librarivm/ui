@@ -8,6 +8,7 @@ import { useDark } from '@vueuse/core';
 
 const config = useRuntimeConfig();
 const route = useRoute();
+const { resetActiveStates } = useMainNavigationSidebarStore();
 
 defineProps({
   /** @type import('vue').PropType<HttpError> */
@@ -27,6 +28,7 @@ definePageMeta({
 });
 
 useDark();
+resetActiveStates();
 </script>
 
 <template>

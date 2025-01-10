@@ -1,5 +1,6 @@
 import { useBaseService } from '~/composables/services/useBaseService.js';
 import { useApi } from '~/composables/api/useApi.js';
+import isNil from 'lodash/isNil';
 
 export const useGetMediaService = async () => {
   const $service = useBaseService('media.show');
@@ -7,16 +8,19 @@ export const useGetMediaService = async () => {
   const params = computed(() => $route.params);
   const type = useState('library.type', () => '');
 
-  $service.startLoading();
-  console.log(18, $route, params);
+  try {
+    $service.startLoading();
 
-  const data = await useApi(`/media/${params.value.media}`, {
-    key: `media.${params.value.media}`,
-  });
+    const data = await useApi(`/media/${params.value.media}`);
 
-  $service.set(data);
+    isNil(data) && $service.fatallyThrow();
 
-  $service.stopLoading();
+    $service.set(data);
+  } catch (err) {
+    $service.fatallyThrow(err);
+  } finally {
+    $service.stopLoading();
+  }
 
   return $service.merge({
     type,

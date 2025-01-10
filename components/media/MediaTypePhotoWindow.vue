@@ -1,8 +1,8 @@
 <script setup>
 import AppGrid from '~/components/grids/AppGrid';
 import AppColumn from '~/components/grids/AppColumn.vue';
-import MasonryTiles from '~/components/displays/MasonryTiles.vue';
 import AppContainer from '~/components/grids/AppContainer.vue';
+import MasonryTiles from '~/components/displays/MasonryTiles.vue';
 
 defineProps({
   data: { type: Object, default: () => ({}) },

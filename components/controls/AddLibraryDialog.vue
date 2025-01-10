@@ -14,12 +14,15 @@ import AppColumn from '~/components/grids/AppColumn.vue';
 import CloseIcon from '~/components/icons/CloseIcon.vue';
 import TextField from '~/components/controls/TextField.vue';
 
-const { loading, data: types } = await useListTypesService();
+const { data: types } = await useListTypesService();
 const { icon } = useLibraryType();
 </script>
 
 <template>
-  <DialogModal class="self-baseline mt-16" @close="console.log('AddLibraryDialog@close')">
+  <DialogModal
+    class="self-baseline mt-16 shadow-2xl"
+    @close="console.log('AddLibraryDialog@close')"
+  >
     <template v-slot:activator="{ prop }">
       <BaseButton size="xs" v-bind="prop" variant="ghost">
         <PlusIcon height="14" width="14" />

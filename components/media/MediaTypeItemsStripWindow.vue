@@ -4,10 +4,12 @@ import PosterCard from '~/components/displays/PosterCard.vue';
 import AppLink from '~/components/navigations/AppLink.vue';
 import ChevronRightIcon from '~/components/icons/ChevronRightIcon.vue';
 import FeaturedBackdrop from '~/components/containments/FeaturedBackdrop.vue';
+import BaseFlexWrapper from '~/components/containments/BaseFlexWrapper.vue';
 
 defineProps({
   data: { type: Object, required: true },
   hideDetails: Boolean,
+  hideTag: Boolean,
 });
 </script>
 
@@ -43,22 +45,47 @@ defineProps({
             </div>
           </template>
           <template v-slot:item="{ item }">
-            <PosterCard
-              :hide-details="hideDetails"
-              :src="item.poster"
-              :subtitle="item.year"
-              :to="{ name: 'media.show', params: { media: item.id } }"
-              class="min-w-[200px]"
-            >
-              <template v-slot:title>
-                <AppLink
-                  :to="{ name: 'media.show', params: { media: item.id } }"
-                  class="block truncate max-w-[200px]"
-                >
-                  {{ item.title }}
-                </AppLink>
+            <div :class="{ 'mr-4': item.is_collection }" class="relative group transition-all">
+              <template v-if="item.is_collection">
+                <BaseFlexWrapper class="absolute top-0 lef-0">
+                  <PosterCard
+                    v-for="(child, i) in item.items.slice(0, 2)"
+                    :key="i"
+                    :src="child.poster"
+                    class="absolute transition-all group-hover:left-3 group-hover:rotate-[7deg] top-0 left-0 rotate-[4deg] hover:focus-0 hover:outline-0"
+                  />
+                </BaseFlexWrapper>
               </template>
-            </PosterCard>
+              <!--PosterCard:class="relative transition-all w-[133px] h-[200px] md:w-[200px] md:h-[300px]"-->
+              <!--AppLink:class="block truncate max-w-[130px] md:max-w-[200px]"-->
+              <PosterCard
+                :aspect-ratio="strip?.metadata?.aspectRatio || 'poster'"
+                :class="[item.is_collection && 'group-hover:mr-8']"
+                :hide-details="hideDetails"
+                :hide-tag="hideTag"
+                :src="item.poster"
+                :subtitle="item?.[strip?.metadata?.subtitle] || item.subtitle"
+                :to="{ name: 'media.show', params: { media: item.id } }"
+                class="relative transition-all"
+              >
+                <template v-slot:title>
+                  <AppLink
+                    :to="{ name: 'media.show', params: { media: item.id } }"
+                    class="block truncate max-w-[130px] md:max-w-[200px]"
+                  >
+                    {{ item?.[strip?.metadata?.title] || item.title }}
+                  </AppLink>
+                </template>
+                <template v-if="strip?.metadata?.links?.subtitle" v-slot:subtitle>
+                  <AppLink
+                    :to="{ name: 'media.show', params: { media: item.id } }"
+                    class="block truncate max-w-[130px] md:max-w-[200px]"
+                  >
+                    {{ item?.[strip?.metadata?.subtitle] || item.subtitle }}
+                  </AppLink>
+                </template>
+              </PosterCard>
+            </div>
           </template>
         </ItemsStrip>
       </FeaturedBackdrop>

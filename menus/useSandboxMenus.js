@@ -7,46 +7,66 @@ export const useSandboxMenus = () => {
 
   const MENU_ITEMS = [
     useMenuItem({
-      icon: 'ContainerIcon',
+      icon: 'LayoutDashboardIcon',
+      title: 'Dashboard',
+      to: { name: 'dashboard' },
+    }),
+    useMenuItem({
+      icon: 'PaletteIcon',
+      title: 'UI Components',
+      to: { name: 'sandbox.ui' },
+    }),
+    useMenuItem({
       type: 'subheader',
       title: 'Containment',
     }),
     useMenuItem({
+      icon: 'PanelBottomUpIcon',
       title: 'Bottom Sheets',
       to: { name: 'sandbox.show', params: { type: 'containments', slug: 'bottom-sheets' } },
     }),
     useMenuItem({
+      icon: 'SquareMousePointerIcon',
       title: 'Buttons',
       to: { name: 'sandbox.show', params: { type: 'containments', slug: 'buttons' } },
     }),
     useMenuItem({
+      icon: 'IdCardIcon',
       title: 'Cards',
       to: { name: 'sandbox.show', params: { type: 'containments', slug: 'cards' } },
     }),
-    useMenuItem({
-      title: 'Chips',
-      to: { name: 'sandbox.show', params: { type: 'containments', slug: 'chips' } },
-    }),
-    useMenuItem({
-      title: 'Dialogs',
-      to: { name: 'sandbox.show', params: { type: 'containments', slug: 'dialogs' } },
-    }),
-
-    useMenuItem({
-      icon: 'NavigationIcon',
-      type: 'subheader',
-      title: 'Navigation',
-    }),
-
-    useMenuItem({
-      icon: 'SquareMousePointerIcon',
-      type: 'subheader',
-      title: 'Selections',
-    }),
-    useMenuItem({
-      title: 'Items Strip',
-      to: { name: 'sandbox.show', params: { type: 'selections', slug: 'items-strip' } },
-    }),
+    // useMenuItem({
+    //   title: 'Buttons',
+    //   to: { name: 'sandbox.show', params: { type: 'containments', slug: 'buttons' } },
+    // }),
+    // useMenuItem({
+    //   title: 'Cards',
+    //   to: { name: 'sandbox.show', params: { type: 'containments', slug: 'cards' } },
+    // }),
+    // useMenuItem({
+    //   title: 'Chips',
+    //   to: { name: 'sandbox.show', params: { type: 'containments', slug: 'chips' } },
+    // }),
+    // useMenuItem({
+    //   title: 'Dialogs',
+    //   to: { name: 'sandbox.show', params: { type: 'containments', slug: 'dialogs' } },
+    // }),
+    //
+    // useMenuItem({
+    //   icon: 'NavigationIcon',
+    //   type: 'subheader',
+    //   title: 'Navigation',
+    // }),
+    //
+    // useMenuItem({
+    //   icon: 'SquareMousePointerIcon',
+    //   type: 'subheader',
+    //   title: 'Selections',
+    // }),
+    // useMenuItem({
+    //   title: 'Items Strip',
+    //   to: { name: 'sandbox.show', params: { type: 'selections', slug: 'items-strip' } },
+    // }),
   ];
 
   $menus.set(MENU_ITEMS);
