@@ -40,7 +40,7 @@ export const useLibraryService = () => {
     $service.stopLoading();
   };
 
-  const show = async (id) => {
+  const find = async (id) => {
     $service.startLoading();
 
     const data = await $service.api(`/libraries/${id}`, {
@@ -94,7 +94,7 @@ export const useLibraryService = () => {
 
   return $service.merge({
     list,
-    show,
+    find,
     store,
     update,
     remove,

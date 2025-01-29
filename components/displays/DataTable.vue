@@ -62,13 +62,25 @@ const onHeaderSort = (header) => {
   });
 };
 
-const { items, select, onSelect, isAllSelected, toggleSelectAll } = useItemsPropsSelection(
-  unref($props.items),
-  {
+const { items, selected, select, onSelect, isAllSelected, toggleSelectAll } =
+  useItemsPropsSelection(unref($props.items), {
     initialValues: $props.selected,
     isMultiSelect: true,
+  });
+
+const onItemSelect = (item, index, event) => {
+  select(item, index);
+
+  if (event.shiftKey) {
+    const selectedIndex = selected.value.findIndex((i) => i.id === item.id);
+    const start = Math.min(selectedIndex, index);
+    const end = Math.max(selectedIndex, index);
+    const sliceItems = [...(end < start ? items.value.reverse() : items.value)];
+    const range = sliceItems.slice(start, end + 1);
+
+    range.forEach((i) => select(i, sliceItems.indexOf(i)));
   }
-);
+};
 
 const onPagination = ({ page, perPage }) => {
   $emit('update:footer', page);
@@ -149,7 +161,11 @@ export default {
           v-bind="{ item, index }"
         >
           <td v-if="selectable" class="pl-6 pr-0 py-4 text-center text-gray-900 dark:text-gray-100">
-            <CheckboxField :checked="item.selected" class="mx-auto" @click="select(item, index)" />
+            <CheckboxField
+              :checked="item.selected"
+              class="mx-auto"
+              @click="onItemSelect(item, index, $event)"
+            />
           </td>
           <td
             v-for="(header, j) in headers"

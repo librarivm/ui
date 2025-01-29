@@ -6,7 +6,6 @@ import AppColumn from '~/components/grids/AppColumn.vue';
 import AppGrid from '~/components/grids/AppGrid.vue';
 import AppContainer from '~/components/grids/AppContainer.vue';
 import PosterCard from '~/components/displays/PosterCard.vue';
-import { useGetMediaService } from '~/composables/services/media/useGetMediaService.js';
 import BaseSection from '~/components/containments/BaseSection.vue';
 import FilmStarIcon from '~/components/icons/FilmStarIcon.vue';
 import BaseBadge from '~/components/feedback/BaseBadge.vue';
@@ -27,13 +26,16 @@ import CaptionIcon from '~/components/icons/CaptionIcon.vue';
 import BaseIconResolver from '~/components/containments/BaseIconResolver.vue';
 import { getAspectRatioWidth } from '~/composables/props/useAspectRatioProps.js';
 import ItemsGroup from '~/components/selections/ItemsGroup.vue';
+import { useMediaService } from '~/composables/services/media/useMediaService.js';
 
 definePageMeta({
   name: 'media.show',
 });
 
 const $route = useRoute();
-const { data } = await useGetMediaService();
+const $service = useMediaService();
+await $service.find($route.params.media);
+const { data } = $service;
 </script>
 
 <template>

@@ -13,8 +13,8 @@ const $route = useRoute();
 const $service = useLibraryService();
 const { loading, data, type } = $service;
 
-await $service.show($route.params.library);
-$service.on('query:changed', () => $service.show($route.params.library));
+await $service.find($route.params.library);
+$service.on('query:changed', () => $service.find($route.params.library));
 </script>
 
 <template>
