@@ -1,9 +1,6 @@
 <script setup>
 import MainContentWindow from '~/components/containments/MainContentWindow.vue';
 import MainNavigationSidebar from '~/components/navigations/MainNavigationSidebar.vue';
-import { useMainMenus } from '~/composables/menus/useMainMenus.js';
-
-useMainMenus();
 </script>
 
 <template>

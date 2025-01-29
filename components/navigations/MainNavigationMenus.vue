@@ -8,9 +8,14 @@ import BaseTooltip from '~/components/feedback/BaseTooltip.vue';
 import BaseButton from '~/components/containments/BaseButton.vue';
 import BaseIconResolver from '~/components/containments/BaseIconResolver.vue';
 import AddLibraryFormPanel from '~/components/forms/AddLibraryFormPanel.vue';
+import { useMainMenus } from '~/composables/menus/useMainMenus.js';
 
+const $menu = useMainMenus();
+await $menu.load();
+
+const { menus, loading } = $menu;
 const $sidebar = useMainNavigationSidebarStore();
-const { items, loading, expanded } = storeToRefs($sidebar);
+const { expanded } = storeToRefs($sidebar);
 const { isMobile } = useAppBreakpoints();
 
 const onItemClick = () => isMobile.value && $sidebar.hide();
@@ -26,13 +31,13 @@ const onItemClick = () => isMobile.value && $sidebar.hide();
     <AddLibraryFormPanel class="mx-auto shrink-0" />
   </TextOverline>
 
-  <BaseList :items="items" :loading="loading" :tooltip="expanded" @click:item="onItemClick">
+  <BaseList :items="menus" :loading="loading" :tooltip="expanded" @click:item="onItemClick">
     <template v-slot:link="{ item }">
       <SkeletonLoader :active="loading">
         <BaseTooltip :disabled="expanded" class="top-0 rounded-lg ml-1 py-2" placement="right">
           <template v-slot:activator>
             <BaseButton
-              :active="$sidebar.isActive(item)"
+              :active="$menu.isActive(item, 'library')"
               :class="[
                 expanded ? 'px-3' : 'px-2',
                 'w-full',
@@ -42,7 +47,7 @@ const onItemClick = () => isMobile.value && $sidebar.hide();
                 '[&.active]:bg-primary [&.active]:text-primary-foreground',
                 'hover:[&.active]:bg-astronaut-blue-950',
               ]"
-              :data-active="$sidebar.isActive(item)"
+              :data-active="item.isActive"
               :to="item.to"
               exact
               size="sm"

@@ -3,27 +3,28 @@ import { useMenuItem } from '~/composables/utils/useMenuItem.js';
 
 export const useUserMenus = () => {
   const $service = useBaseService('menus.user');
+  const { defineMenuItem } = useMenuItem();
 
   const menus = ref([
-    useMenuItem({
+    defineMenuItem({
       icon: 'LayoutDashboardIcon',
       title: 'Dashboard',
       to: { name: 'home' },
     }),
-    useMenuItem({
+    defineMenuItem({
       icon: 'LibraryIcon',
       title: 'Libraries',
       to: { name: 'libraries.index' },
     }),
-    useMenuItem({
+    defineMenuItem({
       type: 'divider',
     }),
-    useMenuItem({
+    defineMenuItem({
       icon: 'SlidersHorizontalIcon',
       title: 'Settings',
       to: { name: 'settings.index' },
     }),
-    useMenuItem({
+    defineMenuItem({
       icon: 'LogOutIcon',
       title: 'Sign out',
       to: { name: 'logout' },

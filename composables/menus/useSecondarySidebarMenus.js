@@ -2,20 +2,21 @@ import { useMenuItem } from '~/composables/utils/useMenuItem.js';
 import { useMenus } from '~/composables/menus/useMenus.js';
 
 export const useSecondarySidebarMenus = () => {
-  const $service = useMenus('menus.main');
+  const $service = useMenus('menus.secondary');
   const $route = useRoute();
   const meta = computed(() => $route.meta);
   const isDark = useDark();
   const toggleDark = useToggle(isDark);
+  const { defineMenuItem } = useMenuItem();
 
   watchEffect(() => {
     $service.defineMenus(() => [
-      useMenuItem({
+      defineMenuItem({
         icon: 'ThemeDarkIcon',
         title: 'Switch Theme',
         action: 'switch-theme',
       }),
-      useMenuItem({
+      defineMenuItem({
         icon: 'PaletteIcon',
         title: 'Sandbox UI',
         to: { name: 'sandbox.ui' },
