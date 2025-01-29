@@ -8,8 +8,8 @@ export const useSandboxMenus = () => {
   const MENU_ITEMS = [
     useMenuItem({
       icon: 'LayoutDashboardIcon',
-      title: 'Dashboard',
-      to: { name: 'dashboard' },
+      title: 'Home',
+      to: { name: 'home' },
     }),
     useMenuItem({
       icon: 'PaletteIcon',

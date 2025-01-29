@@ -9,13 +9,16 @@ import AppColumn from '~/components/grids/AppColumn.vue';
 import BaseCardFooter from '~/components/containments/BaseCardFooter.vue';
 import FolderOpenIcon from '~/components/icons/FolderOpenIcon.vue';
 import BaseCardHeader from '~/components/containments/BaseCardHeader.vue';
-import ListItems from '~/components/selections/ListItems.vue';
 import CloseIcon from '~/components/icons/CloseIcon.vue';
-import { useDrivesListService } from '~/composables/services/useDrivesListService.js';
+import { useDrivesService } from '~/composables/services/drives/useDrivesService.js';
+import BaseList from '~/components/containments/BaseList.vue';
 
 const $emit = defineEmits(['click:cancel', 'click:submit']);
 
-const { data: drives, loading } = await useDrivesListService();
+const $service = useDrivesService();
+await $service.list();
+
+const { items: drives, loading } = $service;
 
 // const form = useForm('folders');
 const form = reactive({
@@ -70,7 +73,7 @@ const onSubmit = () => {
         <AppGrid class="min-h-80 gap-0" grid="6">
           <AppColumn class="border-r p-4" col="2">
             <span class="font-bold block mb-4">Drives</span>
-            <ListItems
+            <BaseList
               :items="drives"
               item-value="path"
               name="folders.drives"
@@ -79,11 +82,11 @@ const onSubmit = () => {
               <template v-slot:[`item.prepend`]>
                 <FolderOpenIcon class="size-4" />
               </template>
-            </ListItems>
+            </BaseList>
           </AppColumn>
           <AppColumn class="p-4" col="4">
             <span class="font-bold block mb-4">Folders</span>
-            <ListItems
+            <BaseList
               :items="metadata.subfolders"
               item-value="path"
               name="folders.subfolders"
@@ -92,7 +95,7 @@ const onSubmit = () => {
               <template v-slot:[`item.prepend`]>
                 <FolderOpenIcon class="size-4" />
               </template>
-            </ListItems>
+            </BaseList>
           </AppColumn>
         </AppGrid>
       </div>

@@ -4,7 +4,7 @@ import CenterContent from '~/components/containments/CenterContent.vue';
 import SignInForm from '~/components/forms/SignInForm.vue';
 
 definePageMeta({
-  layout: 'auth',
+  layout: 'authentication',
   title: 'Sign in',
 });
 </script>

@@ -5,7 +5,7 @@ import BaseCardHeader from '~/components/containments/BaseCardHeader.vue';
 import PackagePlusIcon from '~/components/icons/PackagePlusIcon.vue';
 import BaseCardContent from '~/components/containments/BaseCardContent.vue';
 import { useLibraryType } from '~/composables/types/useLibraryType.js';
-import { useListTypesService } from '~/composables/services/types/useListTypesService.js';
+import { useTypeService } from '~/composables/services/types/useTypeService.js';
 import CloseIcon from '~/components/icons/CloseIcon.vue';
 import TextField from '~/components/controls/TextField.vue';
 import TextareaField from '~/components/controls/TextareaField.vue';
@@ -22,7 +22,10 @@ import DialogModal from '~/components/containments/DialogModal.vue';
 import AddFoldersForm from '~/components/forms/AddFoldersForm.vue';
 import { useAppBreakpoints } from '~/composables/utils/useAppBreakpoints.js';
 
-const { data: types } = await useListTypesService();
+const $service = useTypeService();
+await $service.list();
+const { data: types } = $service;
+
 const { icon } = useLibraryType();
 const $store = useRightSidebarFullPanelStore();
 const { expanded } = storeToRefs($store);

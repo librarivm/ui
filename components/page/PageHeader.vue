@@ -17,6 +17,10 @@ const $props = defineProps({
 usePageHeader().stick($props.sticky);
 
 const { isTopArrived, isNotAtTop } = useMainContentWindowScroll();
+
+useSeoMeta({
+  title: $props.title,
+});
 </script>
 
 <template>
@@ -44,7 +48,7 @@ const { isTopArrived, isNotAtTop } = useMainContentWindowScroll();
       <slot name="prepend">
         <MainNavigationSidebarToggle v-if="toggle" />
         <BackButton v-if="back" />
-        <PageTitle v-if="title" class="text-2xl ml-1">{{ title }}</PageTitle>
+        <PageTitle v-if="title" class="text-md ml-1">{{ title }}</PageTitle>
       </slot>
 
       <div class="flex-1">

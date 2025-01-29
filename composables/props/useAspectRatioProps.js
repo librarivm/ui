@@ -1,4 +1,4 @@
-export const useAspectRatioProp = () => {
+export const useAspectRatioProps = () => {
   return {
     /** @type import('vue').PropType<BaseImageAspectRatioType> */
     aspectRatio: { type: String, default: 'auto' },

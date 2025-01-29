@@ -1,8 +1,13 @@
-/** @typedef {Object<string, any>} MergableAttributes */
 
-/** @param {MergableAttributes} options */
+/**
+ * A utility function to merge objects.
+ *
+ * @template T
+ * @param {T} options - The base options to merge.
+ * @returns {T} The merged object with a merge method.
+ */
 export const useMerge = (options) => {
-  /** @param {MergableAttributes} attributes */
+  /** @param {{}} attributes */
   const merge = (attributes = {}) => ({
     ...options,
     ...attributes,

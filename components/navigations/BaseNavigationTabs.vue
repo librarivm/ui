@@ -13,7 +13,7 @@ const $router = useRouter();
 
 if (!$route.query.type) {
   const item = $props.items?.[0];
-  await $router.push({ query: { type: item?.metadata?.route?.query?.type } });
+  $router.push({ query: { type: item?.metadata?.route?.query?.type } });
 }
 
 const isActive = (item) => {

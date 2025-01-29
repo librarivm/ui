@@ -5,7 +5,7 @@ import BaseButton from '~/components/containments/BaseButton.vue';
 import ChevronLeftIcon from '~/components/icons/ChevronLeftIcon.vue';
 import ChevronRightIcon from '~/components/icons/ChevronRightIcon.vue';
 import PosterCard from '~/components/displays/PosterCard.vue';
-import { useAspectRatioProp } from '~/composables/props/useAspectRatioProp.js';
+import { useAspectRatioProps } from '~/composables/props/useAspectRatioProps.js';
 import { useItemsGroup, useItemsGroupProps } from '~/composables/props/useItemsGroupProps.js';
 import TextHeading from '~/components/typography/TextHeading.vue';
 import TextSubheading from '~/components/typography/TextSubheading.vue';
@@ -17,7 +17,7 @@ import { useTruncate } from '~/composables/utils/useTruncate.js';
 
 const $props = defineProps({
   ...useItemsProps(),
-  ...useAspectRatioProp(),
+  ...useAspectRatioProps(),
   ...useItemsGroupProps(),
   label: { type: String, default: null },
   text: { type: String, default: null },

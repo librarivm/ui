@@ -1,7 +1,7 @@
-import { useVisibilityToggle } from '~/composables/utils/useVisibilityToggle.js';
+import { useVisibility } from '~/composables/utils/useVisibility.js';
 
 export const useUserMenuStore = defineStore('user.menu', () => {
-  const $base = useVisibilityToggle('user.menu');
+  const $base = useVisibility('user.menu');
 
   return $base.merge();
 });

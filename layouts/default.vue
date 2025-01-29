@@ -1,9 +1,9 @@
 <script setup>
-import MainNavigationSidebar from '~/components/navigations/MainNavigationSidebar.vue';
 import MainContentWindow from '~/components/containments/MainContentWindow.vue';
-import { useAppMenus } from '~/menus/useAppMenus.js';
+import MainNavigationSidebar from '~/components/navigations/MainNavigationSidebar.vue';
+import { useMainMenus } from '~/composables/menus/useMainMenus.js';
 
-useAppMenus();
+useMainMenus();
 </script>
 
 <template>

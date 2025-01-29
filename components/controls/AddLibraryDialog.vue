@@ -8,13 +8,13 @@ import PackagePlusIcon from '~/components/icons/PackagePlusIcon.vue';
 import BaseCardContent from '~/components/containments/BaseCardContent.vue';
 import BaseCardFooter from '~/components/containments/BaseCardFooter.vue';
 import { useLibraryType } from '~/composables/types/useLibraryType.js';
-import { useListTypesService } from '~/composables/services/types/useListTypesService.js';
+import { useTypeService } from '~/composables/services/types/useTypeService.js';
 import AppGrid from '~/components/grids/AppGrid.vue';
 import AppColumn from '~/components/grids/AppColumn.vue';
 import CloseIcon from '~/components/icons/CloseIcon.vue';
 import TextField from '~/components/controls/TextField.vue';
 
-const { data: types } = await useListTypesService();
+const { data: types } = await useTypeService();
 const { icon } = useLibraryType();
 </script>
 

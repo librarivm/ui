@@ -1,9 +1,9 @@
 <script setup>
 import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
-import { useAspectRatioProp } from '~/composables/props/useAspectRatioProp.js';
+import { useAspectRatioProps } from '~/composables/props/useAspectRatioProps.js';
 
 const $props = defineProps({
-  ...useAspectRatioProp(),
+  ...useAspectRatioProps(),
 });
 
 const aspectRatio = computed(() => `aspect-${$props.aspectRatio}`);

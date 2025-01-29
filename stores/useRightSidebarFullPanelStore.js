@@ -1,7 +1,7 @@
-import { useVisibilityToggle } from '~/composables/utils/useVisibilityToggle.js';
+import { useVisibility } from '~/composables/utils/useVisibility.js';
 
 export const useRightSidebarFullPanelStore = defineStore('right.sidebar.full.panel', () => {
-  const $service = useVisibilityToggle('rightsidebar', false);
+  const $service = useVisibility('rightsidebar', false);
   const width = useState('rightsidebar.width', () => '40%');
   const expanded = useState('rightsidebar.expanded', () => false);
   const condensed = computed(() => !expanded.value);

@@ -1,5 +1,6 @@
 import kebabCase from 'lodash/kebabCase';
 import isEmpty from 'lodash/isEmpty';
+import merge from 'lodash/merge.js';
 
 /**
  * @param {MenuItem} item
@@ -23,15 +24,9 @@ export const useMenuItem = (item) => {
     active.value = true;
   }
 
-  return Object.assign(
-    {
-      type: 'link',
-    },
-    item,
-    {
-      value,
-      active,
-      is_parent: !isEmpty(item.submenus),
-    }
-  );
+  return merge({ type: 'link' }, item, {
+    value,
+    active: active.value,
+    isParent: !isEmpty(item.submenus),
+  });
 };

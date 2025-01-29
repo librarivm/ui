@@ -3,17 +3,18 @@
 ### TODO
 
 - TODO: add data.metadata.contents.type list
+- TODO: BaseTooltip to be teleported outside #app
 - TODO: make comics issues a Grid component
 - component: BasePopover
 - component: Lightbox for Photo previews https://fslightbox.com/vue
 - component: ItemsStrip -> ItemsStripItem with events + selected
 - component: Loading indicators for menus
 - plugin: https://vue3-carousel.ismail9k.com/examples.html
-- component: VerticalStepper https://pagedone.io/docs/stepper
 - component: UserMenu with GlassPanel
 
 ### Jan 10, 2025
  
+- component: VerticalStepper https://pagedone.io/docs/stepper
 - solved: useMenuItem without needing to pass useRoute()
 
 ### Dec 28, 2024

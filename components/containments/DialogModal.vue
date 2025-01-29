@@ -5,7 +5,15 @@ import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
 
 const $emit = defineEmits(['open', 'close']);
 
-const model = ref(false);
+const model = defineModel('modelValue', false);
+
+defineProps({
+  modelValue: Boolean,
+});
+
+watchEffect(() => {
+  $emit(model.value ? 'open' : 'close');
+});
 
 const close = () => (model.value = false);
 const open = () => (model.value = false);

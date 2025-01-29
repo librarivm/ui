@@ -14,7 +14,12 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['@/assets/css/theme.light.css', '@/assets/css/theme.dark.css', '@/assets/css/app.css'],
+  css: [
+    '@/assets/css/fonts.css',
+    '@/assets/css/theme.light.css',
+    '@/assets/css/theme.dark.css',
+    '@/assets/css/app.css',
+  ],
 
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxt/eslint', '@nuxt/content'],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vueuse/nuxt', '@nuxt/eslint', '@nuxt/content'],
 });

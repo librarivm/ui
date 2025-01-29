@@ -11,5 +11,7 @@
  * @property {import('vue').Component} icon - Icon component for the menu.
  * @property {import('vue-router').RouteLocationRaw} to - Destination route for the <NuxtLink> component. Can be a string, object, or named route.
  * @property {MenuItem[]} submenus - Alias for `children` for flexibility.
+ * @property {boolean?} isActive - Checks if item is active.
+ * @property {boolean?} isParent - Checks if item is parent.
  * @property {string[]?} activatableRouteNames - List of route names that mark this menu as active.
  */

@@ -5,17 +5,17 @@ import AppGrid from '~/components/grids/AppGrid.vue';
 import AppColumn from '~/components/grids/AppColumn.vue';
 
 definePageMeta({
-  name: 'dashboard',
-  title: 'Dashboard',
+  name: 'home',
+  title: 'Home',
 });
 </script>
 
 <template>
-  <PageHeader title="Dashboard" />
+  <PageHeader title="Home" />
   <MainContent>
     <AppContainer>
       <AppGrid>
-        <AppColumn> todo: dashboard</AppColumn>
+        <AppColumn> todo: Home </AppColumn>
       </AppGrid>
     </AppContainer>
   </MainContent>

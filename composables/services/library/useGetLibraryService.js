@@ -14,7 +14,7 @@ export const useGetLibraryService = async () => {
     const data = await useApi(`/libraries/${code.value}`, {
       key: `library.${code.value}`,
       params: {
-        _embed: 'contents',
+        _embed: 'collections',
       },
     });
 

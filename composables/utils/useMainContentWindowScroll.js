@@ -1,4 +1,5 @@
 import debounce from 'lodash/debounce';
+import { useEventBus } from '~/composables/utils/useEventBus.js';
 
 export const useMainContentWindowScroll = () => {
   const element = useState('main.content.window.scroll.element', () => null);
@@ -7,6 +8,7 @@ export const useMainContentWindowScroll = () => {
   const isScrolling = useState('main.content.window.scroll.isScrolling', () => false);
   const isNotAtTop = computed(() => !isTopArrived.value);
   const isNotAtBottom = computed(() => !isBottomArrived.value);
+  const $event = useEventBus();
 
   const stopScrollingState = debounce(() => {
     isScrolling.value = false;
@@ -17,11 +19,19 @@ export const useMainContentWindowScroll = () => {
 
     element.value = el;
 
+    const height = el.scrollHeight - el.scrollTop - el.clientHeight;
     isTopArrived.value = el.scrollTop === 0;
-    isBottomArrived.value = el.scrollHeight - el.scrollTop - el.clientHeight <= 0;
+    isBottomArrived.value = height <= 0;
 
     isScrolling.value = true;
     stopScrollingState();
+
+    $event.emit('scroll', {
+      el,
+      isScrolling: isScrolling.value,
+      isTopArrived: isTopArrived.value,
+      isBottomArrived: isBottomArrived.value,
+    });
   };
 
   return {
@@ -32,5 +42,6 @@ export const useMainContentWindowScroll = () => {
     isNotAtTop,
     isNotAtBottom,
     onScroll,
+    ...$event,
   };
 };

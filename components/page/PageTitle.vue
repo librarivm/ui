@@ -25,7 +25,12 @@ const variant = computed(() => types[$props.type]);
 <template>
   <component
     :is="type"
-    :class="useMergeClasses(['font-bold', 'font-serif', variant], $attrs.class)"
+    :class="
+      useMergeClasses(
+        ['font-bold', 'flex justify-between items-center gap-2', 'font-serif', variant],
+        $attrs.class
+      )
+    "
   >
     <slot />
   </component>

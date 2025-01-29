@@ -15,6 +15,7 @@ const $props = defineProps({
   size: { type: String, default: 'md' },
   /** @type import('vue').PropType<ButtonVariantType> */
   variant: { type: String, default: 'default' },
+  square: Boolean,
 });
 
 const size = computed(() => sizes[$props.size]);
@@ -31,7 +32,7 @@ const component = computed(() => (href.value ? resolveComponent('NuxtLink') : 'b
       useMergeClasses(
         [
           'min-w-sm',
-          'font-bold',
+          'font-normal font-sans',
           'flex',
           'align-center',
           'justify-center',
@@ -45,6 +46,7 @@ const component = computed(() => (href.value ? resolveComponent('NuxtLink') : 'b
           variant,
           textSize,
           active && 'active',
+          square && 'size-6 p-1',
         ],
         $attrs.class
       )

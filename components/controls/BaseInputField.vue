@@ -1,5 +1,6 @@
 <script setup>
 import { useVariantType } from '~/composables/types/useVariantType.js';
+import { useMergeClasses } from '~/composables/utils/useMergeClasses.js';
 
 defineProps({
   /**
@@ -20,19 +21,23 @@ const classes = [
 </script>
 
 <template>
-  <input v-if="field === 'input'" v-model="model" :class="classes" v-bind="$attrs" />
+  <input
+    v-if="field === 'input'"
+    v-model="model"
+    :class="useMergeClasses(classes, $attrs.class)"
+    v-bind="$attrs"
+  />
   <textarea
     v-else-if="field === 'textarea'"
     v-model="model"
-    :class="classes"
+    :class="useMergeClasses(classes, $attrs.class)"
     class="min-h-11"
     v-bind="$attrs"
   />
   <select
     v-else-if="field === 'select'"
     v-model="model"
-    :class="classes"
-    class="min-h-11"
+    :class="useMergeClasses(classes, $attrs.class)"
     v-bind="$attrs"
   >
     <slot />

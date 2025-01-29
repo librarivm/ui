@@ -7,6 +7,7 @@ import FeaturedBackdrop from '~/components/containments/FeaturedBackdrop.vue';
 import BaseFlexWrapper from '~/components/containments/BaseFlexWrapper.vue';
 
 defineProps({
+  /** @type import('vue').PropType<MediaItem> */
   data: { type: Object, required: true },
   hideDetails: Boolean,
   hideTag: Boolean,
@@ -15,7 +16,7 @@ defineProps({
 
 <template>
   <div class="flex flex-col gap-12" data-component="media-type-movie-window">
-    <template v-for="(strip, i) in Object.values(data.contents)" :key="i">
+    <template v-for="(strip, i) in Object.values(data.collections)" :key="i">
       <FeaturedBackdrop
         :disabled="!strip.is_featured"
         :src="strip.backdrop"
@@ -49,10 +50,10 @@ defineProps({
               <template v-if="item.is_collection">
                 <BaseFlexWrapper class="absolute top-0 lef-0">
                   <PosterCard
-                    v-for="(child, i) in item.items.slice(0, 2)"
-                    :key="i"
+                    v-for="(child, j) in item.items.slice(0, 2)"
+                    :key="j"
                     :src="child.poster"
-                    class="absolute transition-all group-hover:left-3 group-hover:rotate-[7deg] top-0 left-0 rotate-[4deg] hover:focus-0 hover:outline-0"
+                    class="absolute transition-all top-0 left-0 rotate-[1deg] hover:focus-0 hover:outline-0"
                   />
                 </BaseFlexWrapper>
               </template>
@@ -60,17 +61,16 @@ defineProps({
               <!--AppLink:class="block truncate max-w-[130px] md:max-w-[200px]"-->
               <PosterCard
                 :aspect-ratio="strip?.metadata?.aspectRatio || 'poster'"
-                :class="[item.is_collection && 'group-hover:mr-8']"
                 :hide-details="hideDetails"
                 :hide-tag="hideTag"
                 :src="item.poster"
                 :subtitle="item?.[strip?.metadata?.subtitle] || item.subtitle"
-                :to="{ name: 'media.show', params: { media: item.id } }"
+                :to="{ name: 'media.show', params: { library: data.slug, media: item.id } }"
                 class="relative transition-all"
               >
                 <template v-slot:title>
                   <AppLink
-                    :to="{ name: 'media.show', params: { media: item.id } }"
+                    :to="{ name: 'media.show', params: { library: data.slug, media: item.id } }"
                     class="block truncate max-w-[130px] md:max-w-[200px]"
                   >
                     {{ item?.[strip?.metadata?.title] || item.title }}
@@ -78,7 +78,7 @@ defineProps({
                 </template>
                 <template v-if="strip?.metadata?.links?.subtitle" v-slot:subtitle>
                   <AppLink
-                    :to="{ name: 'media.show', params: { media: item.id } }"
+                    :to="{ name: 'media.show', params: { library: data.slug, media: item.id } }"
                     class="block truncate max-w-[130px] md:max-w-[200px]"
                   >
                     {{ item?.[strip?.metadata?.subtitle] || item.subtitle }}

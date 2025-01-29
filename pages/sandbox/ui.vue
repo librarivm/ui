@@ -10,10 +10,10 @@ import BaseFlexWrapper from '~/components/containments/BaseFlexWrapper.vue';
 import BaseSection from '~/components/containments/BaseSection.vue';
 import BaseTooltip from '~/components/feedback/BaseTooltip.vue';
 import VerticalStepper from '~/components/selections/VerticalStepper.vue';
-import AddFoldersForm from '~/components/forms/AddFoldersForm.vue';
+import ContextMenu from '~/components/selections/ContextMenu.vue';
 
 definePageMeta({
-  layout: 'sandbox',
+  layout: 'default',
   name: 'sandbox.ui',
   title: 'UI Sandbox',
 });
@@ -26,7 +26,21 @@ definePageMeta({
     <AppContainer class="mx-auto">
       <AppGrid class="place-self-center">
         <AppColumn class="flex flex-col gap-10 place-self-center mx-auto" md="8">
-          <AddFoldersForm />
+          <!--<AddFoldersForm />-->
+          <PageTitle class="mb-4" type="h1">Context Menu</PageTitle>
+          <div class="shrink-0">
+            <ContextMenu :items="[1, 2, 3, 4]" name="x">
+              <template v-slot:link="{ item }">
+                <span>{{ item.title }}</span>
+              </template>
+            </ContextMenu>
+            <ContextMenu :items="[1, 2, 3, 4]" name="y">
+              <template v-slot:link="{ item }">
+                <span>{{ item.title }}</span>
+              </template>
+            </ContextMenu>
+          </div>
+
           <PageTitle class="mb-4" type="h1">Vertical Stepper</PageTitle>
           <BaseSection class="p-0 gap-4">
             <VerticalStepper
@@ -101,21 +115,21 @@ definePageMeta({
               Add <code class="border bg-neutral-50 rounded-lg py-1 px-2">w-full</code> class.
             </p>
             <BaseFlexWrapper class="border border-neutral-400 bg-neutral-400/20 p-4 rounded-lg">
-              <BaseTooltip placement="bottom left">
-                <template v-slot:activator>the bottom left</template>
-                I'm the tooltip for <span class="font-bold">bottom left</span>
+              <BaseTooltip placement="bottom-start">
+                <template v-slot:activator>the bottom-start</template>
+                I'm the tooltip for <span class="font-bold">bottom-start</span>
               </BaseTooltip>
-              <BaseTooltip placement="bottom right">
-                <template v-slot:activator>the bottom right</template>
-                I'm the tooltip for <span class="font-bold">bottom right</span>
+              <BaseTooltip placement="bottom-end">
+                <template v-slot:activator>the bottom-end</template>
+                I'm the tooltip for <span class="font-bold">bottom-end</span>
               </BaseTooltip>
-              <BaseTooltip placement="top right">
-                <template v-slot:activator>the top right</template>
-                I'm the tooltip for <span class="font-bold">top right</span>
+              <BaseTooltip placement="top-end">
+                <template v-slot:activator>the top-end</template>
+                I'm the tooltip for <span class="font-bold">top-end</span>
               </BaseTooltip>
-              <BaseTooltip placement="top left">
-                <template v-slot:activator>the top left</template>
-                I'm the tooltip for <span class="font-bold">top left</span>
+              <BaseTooltip placement="top-start">
+                <template v-slot:activator>the top-start</template>
+                I'm the tooltip for <span class="font-bold">top-start</span>
               </BaseTooltip>
               <BaseTooltip placement="left">
                 <template v-slot:activator>the left</template>
@@ -131,6 +145,10 @@ definePageMeta({
               </BaseTooltip>
               <BaseTooltip placement="top">
                 <template v-slot:activator>the top</template>
+                I'm the tooltip for <span class="font-bold">top</span>
+              </BaseTooltip>
+              <BaseTooltip disabled placement="top">
+                <template v-slot:activator>disabled tooltip</template>
                 I'm the tooltip for <span class="font-bold">top</span>
               </BaseTooltip>
             </BaseFlexWrapper>

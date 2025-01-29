@@ -7,12 +7,12 @@ import BaseBadge from '~/components/feedback/BaseBadge.vue';
 import {
   getAspectRatioHeight,
   getAspectRatioWidth,
-  useAspectRatioProp,
-} from '~/composables/props/useAspectRatioProp.js';
+  useAspectRatioProps,
+} from '~/composables/props/useAspectRatioProps.js';
 
 const $props = defineProps({
   ...useLinkProps(),
-  ...useAspectRatioProp(),
+  ...useAspectRatioProps(),
 
   title: { type: String, default: null },
 

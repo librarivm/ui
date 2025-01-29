@@ -1,6 +1,7 @@
 import isNil from 'lodash/isNil';
 import isObject from 'lodash/isObject';
 import { useUuid } from '~/composables/utils/useUuid.js';
+import { isArray } from 'lodash';
 
 export const useItemsProps = () => {
   return {
@@ -27,7 +28,7 @@ export const useItemsProps = () => {
  * @returns {{selected: Ref<UnwrapRef<*[]>, UnwrapRef<*[]> | *[]>, select: Function, items: [*] extends [Ref] ? IfAny<*, Ref<*>, *> : Ref<UnwrapRef<*>, *>}}
  */
 export const useItemsPropsSelection = (items, options = {}) => {
-  const selected = ref([]);
+  const selected = ref([...(options.initialValues || [])]);
   const { name, isMultiSelect, firstItemSelected } = {
     name: useUuid('.'),
     firstItemSelected: false,
@@ -36,7 +37,9 @@ export const useItemsPropsSelection = (items, options = {}) => {
   };
 
   const makeItems = (items) => {
-    return items?.map((item, i) => ({
+    if (!isArray(items)) return [];
+
+    return [...(items || [])]?.map((item, i) => ({
       ...item,
       selected: firstItemSelected ? i === 0 && true : false,
     }));
@@ -84,12 +87,23 @@ export const useItemsPropsSelection = (items, options = {}) => {
     select(item);
   };
 
+  const isAllSelected = computed(() => selected.value.length === mappedItems.value.length);
+  const toggleSelectAll = () => {
+    const allSelected = selected.value.length === mappedItems.value.length;
+    mappedItems.value.forEach((item) => {
+      item.selected = allSelected;
+      select(item);
+    });
+  };
+
   return {
     selected,
     select,
     onSelect,
     makeItems,
     selectFromIndex,
+    toggleSelectAll,
+    isAllSelected,
     items: mappedItems,
   };
 };
